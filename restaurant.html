@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHMhmspczhH18RDnapy8LO-30oFXPsQQA&libraries=places"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>{{title}}</h1>
+        <show-map>Show map</show-map>
+
+    </div>
+
+    <script>let app = Vue.createApp({
+        data() {
+            return {
+                title: "Hellurej, tryck på knappen"
+            };
+        },
+    });
+    
+    
+    app.component("show-map", {
+        template: '<div id="map" style="height: 600px; width: 100%;"><button type="button" @click.prevent="findRestaurants">Show map</button></div>',
+        methods: {
+            findRestaurants() {
+                const map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 60.20157545248931, lng: 24.9654922079165 },
+                    zoom: 14
+                });
+            
+                const request = {
+                    location: new google.maps.LatLng(60.20157545248931, 24.9654922079165),
+                    radius: 1000,
+                    type: ['restaurant']
+                };
+            
+                const service = new google.maps.places.PlacesService(map);
+                    service.nearbySearch(request, (results, status, pagination) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            for (let i = 0; i < results.length; i++) {
+                                const place = results[i];
+                                const marker = new google.maps.Marker({
+                                    position: place.geometry.location,
+                                    map: map,
+                                });
+            
+                                const infowindow = new google.maps.InfoWindow({
+                                    content: `<strong>${place.name}</strong><br>${place.vicinity}`
+                                });
+            
+                                marker.addListener('click', () => {
+                                    infowindow.open(map, marker);
+                                });
+            
+                                console.log(place.name);
+                            }
+                     
+                        }
+                    });
+                }
+        },
+    });
+    
+    app.mount("#app");</script>
+</body>
+</html>
