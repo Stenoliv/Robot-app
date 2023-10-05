@@ -1,48 +1,17 @@
-/* Main page style \/ */
-
-.main {
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 75%;
-    height: 100%;
+<script>
+export default {
+    props: ['question']
 }
+</script>
 
-/* Page Header style */
+<template>
+    <div class="button-box recipe">
+        <div class="question"> {{ question }}</div>
+        <img class="home-img" src="@/assets/images/food.jpg" alt="recipe-img">
+    </div>
+</template>
 
-.header {
-    margin: 0;
-    padding: 0;
-    border-bottom: 2px solid white;
-    margin-left: -10%;
-    margin-right: -10%;
-    padding-left: 10%;
-    font-size: 5vw;
-}
-
-
-/* restaurant, recipe and random buttons style \/ */
-
-.title {
-    text-align-last: justify;
-    font-size: 4vw;
-    padding-top: 0.5em;
-    width: 100%;
-    max-lines: 1;
-}
-
-.buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: var(--gap);
-    height: 80%;
-}
-
+<style scoped>
 .button-box {
     position: relative;
     width: 99%;
@@ -92,3 +61,5 @@
 .button-box:hover::after {
     opacity: 1;
 }
+
+</style>
