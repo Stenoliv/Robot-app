@@ -24,7 +24,9 @@ export default {
         </div>
         <div class="buttons">
             <div class="title">Don't know what to eat? I can help!</div>
-            <HomePageButton v-for="button in buttons" v-bind="button"/>
+            <HomePageButton v-for="button in buttons" 
+             :key="button"
+             v-bind="button"/>
         </div>
     </div>
 </template>
