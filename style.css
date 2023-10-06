@@ -1,0 +1,13 @@
+#map{
+    height: 300px;
+    width: 20%;
+}
+
+.restaraunt-styling{
+    margin: 5px;
+    border-radius: 20px;
+    background-color: aqua;
+    padding: 15px;
+    cursor: pointer;
+    display: inline-block;
+}
