@@ -11,21 +11,23 @@
     <div id="app">
         <header>
             <h1>{{title}}</h1>
-        <show-map>Show map</show-map>
-
+            <show-map></show-map>
+            <div id="fis"></div>
     </div>
 
     <script>let app = Vue.createApp({
         data() {
             return {
-                title: "Hellurej, tryck på knappen"
+                title: "Hellurej, tryck på knappen",
+                
             };
         },
     });
     
     
+    
     app.component("show-map", {
-        template: '<div id="map" style="height: 600px; width: 100%;"><button type="button" @click.prevent="findRestaurants">Show map</button></div>',
+        template: '<div id="map"><button type="button" @click.prevent="findRestaurants">Get restaurants</button></div>',
         methods: {
             findRestaurants() {
                 const map = new google.maps.Map(document.getElementById('map'), {
@@ -38,31 +40,40 @@
                     radius: 1000,
                     type: ['restaurant']
                 };
-            
-                const service = new google.maps.places.PlacesService(map);
+    
+                
+                    const service = new google.maps.places.PlacesService(map);
                     service.nearbySearch(request, (results, status, pagination) => {
                         if (status === google.maps.places.PlacesServiceStatus.OK) {
                             for (let i = 0; i < results.length; i++) {
                                 const place = results[i];
+                                console.log(place.name);
+                        
+                                const divRest = document.createElement("div");
+                                divRest.innerHTML = `${place.name} <br> Adress: ${place.vicinity} <br> Rating: ${place.rating}`;
+                                divRest.classList.add("restaraunt-styling");
+                                document.querySelector("#fis").appendChild(divRest);
+                        
                                 const marker = new google.maps.Marker({
                                     position: place.geometry.location,
                                     map: map,
                                 });
-            
+                        
                                 const infowindow = new google.maps.InfoWindow({
                                     content: `<strong>${place.name}</strong><br>${place.vicinity}`
                                 });
-            
+                        
                                 marker.addListener('click', () => {
                                     infowindow.open(map, marker);
                                 });
-            
-                                console.log(place.name);
                             }
-                     
                         }
+                        
                     });
                 }
+                
+            
+    
         },
     });
     
