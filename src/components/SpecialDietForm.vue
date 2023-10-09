@@ -13,36 +13,32 @@
       <br>
       <br>
       <span>Allergies</span>
-      <input type="checkbox" id="peanut" value="Peanut" v-model="allergies">
-      <label for="peanut">Peanut</label>
-
-      <input type="checkbox" id="fish" value="Fish" v-model="allergies">
-      <label for="fish">Fish</label>
-
-      <input type="checkbox" id="dairy" value="Dairy" v-model="allergies">
-      <label for="dairy">Dairy</label>
-
-      <input type="checkbox" id="gluten" value="Gluten" v-model="allergies">
-      <label for="gluten">Gluten</label>
-
-      <input type="checkbox" id="tomato" value="Tomato" v-model="allergies">
-      <label for="tomato">Tomato</label>
+      <Intolerances v-for="option in Intolerce" 
+      v-bind="option" v-model="allergies"/>
 
       <br>
       <br>
-      <input class="submit" type="submit" value="Submit">
       </form>
    </div>
 </template>
 <script>
-
+import Intolerances from './Intolerances.vue'
 
 export default{
    data(){
       return{
          dietPref: "",
          visibility: false,
-         allergies: []
+         allergies: [],
+         Intolerce: [
+            {id:"grain",value:"Grain",title:"Grain"},
+            {id:"dairy",value:"Dairy",title:"Dairy"},
+            {id:"gluten",value:"Gluten",title:"Gluten"},
+            {id:"soybeans",value:"Soybeans",title:"Soybeans"},
+            {id:"shellfish",value:"Shellfish",title:"Shellfish"},
+            {id:"fish",value:"Fish",title:"fish"},
+            {id:"eggs",value:"Eggs",title:"Eggs"},
+            {id:"peanut",value:"Peanut",title:"Peanut"}]
       }
    },
    methods: {
@@ -50,10 +46,8 @@ export default{
          if(this.visibility == false)this.visibility = true
          else this.visibility = false
         }
-   }
+   },
+   components: {Intolerances}
     
 }
-    
-  
-
 </script>
