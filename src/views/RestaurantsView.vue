@@ -1,20 +1,18 @@
 <script>
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 
 export default {
-    components: {
-        RouterLink
-    }
+  components: {
+    RouterLink
+  }
 }
 </script>
 
 <template>
-    <RouterLink to="/">
-        <span>Back</span>
-    </RouterLink>
-    <h1>Restaurant</h1>
+  <RouterLink to="/">
+    <span>Back</span>
+  </RouterLink>
+  <h1>Restaurant</h1>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

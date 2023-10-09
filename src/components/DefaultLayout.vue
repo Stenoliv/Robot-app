@@ -1,15 +1,15 @@
 <script>
-import { RouterView } from 'vue-router';
+import { RouterView } from 'vue-router'
 
 export default {
-    components: {
-        RouterView
-    }
+  components: {
+    RouterView
+  }
 }
 </script>
 
 <template>
-    <main>
-        <RouterView />
-    </main>
+  <main>
+    <RouterView />
+  </main>
 </template>

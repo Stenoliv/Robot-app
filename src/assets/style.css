@@ -1,12 +1,12 @@
 :root {
-    --margin: 120px;
-    --bakground: #541414ff;
-    --interact-color: rgb(82, 54, 54);
-    --gap: 3em;
+  --margin: 120px;
+  --bakground: #541414ff;
+  --interact-color: rgb(82, 54, 54);
+  --gap: 3em;
 }
 
 body {
-    background-color: var(--bakground);
-    margin: 0;
-    color: white;
+  background-color: var(--bakground);
+  margin: 0;
+  color: white;
 }
