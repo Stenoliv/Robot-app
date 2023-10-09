@@ -25,6 +25,9 @@
       <input type="checkbox" id="gluten" value="Gluten" v-model="allergies">
       <label for="gluten">Gluten</label>
 
+      <input type="checkbox" id="tomato" value="Tomato" v-model="allergies">
+      <label for="tomato">Tomato</label>
+
       <br>
       <br>
       <input class="submit" type="submit" value="Submit">
