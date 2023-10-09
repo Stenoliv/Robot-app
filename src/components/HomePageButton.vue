@@ -1,14 +1,22 @@
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
-    props: ['question']
+    components: {
+        RouterLink
+    },
+    props: [
+        'question',
+        'link'
+    ]
 }
 </script>
 
 <template>
-    <div class="button-box recipe">
+    <RouterLink :to="link" class="button-box recipe">  
         <div class="question"> {{ question }}</div>
         <img class="home-img" src="@/assets/images/food.jpg" alt="recipe-img">
-    </div>
+    </RouterLink>
 </template>
 
 <style scoped>
@@ -21,6 +29,7 @@ export default {
     box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
     transition: all 0.3s ease-in-out;
     border: 5px solid black;
+    color: white;
 }
 
 .question {
