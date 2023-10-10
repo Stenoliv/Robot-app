@@ -1,21 +1,25 @@
 <script>
-import { RouterLink } from 'vue-router'
 import SpecialDietForm from '../components/SpecialDietForm.vue'
+import DisplayRecipe from '../components/DisplayRecipes.vue'
 
 export default {
   components: {
-    RouterLink,
-    SpecialDietForm
+    SpecialDietForm,
+    DisplayRecipe
   }
 }
 </script>
 
 <template>
-  <RouterLink to="/">
-    <span>Back</span>
-  </RouterLink>
-  <h1>Recipe</h1>
-  <SpecialDietForm></SpecialDietForm>
+  <SpecialDietForm class="container"/>
+  <DisplayRecipe class="RecipeContainer"/>
 </template>
 
-<style scoped></style>
+<style scoped>
+ .container {
+    height: 16vh;
+  }
+  .RecipeContainer {
+    height: 84vh;
+  }
+</style>

@@ -1,4 +1,5 @@
 <script>
+import { RouterLink } from 'vue-router'
 import IntoleranceCheckbox from './IntoleranceCheckbox.vue'
 
 export default {
@@ -26,12 +27,17 @@ export default {
     }
   },
   components: {
+    RouterLink,
     IntoleranceCheckbox
   }
 }
 </script>
 
 <template>
+  <div>
+    <RouterLink to="/">
+    <span>Back</span>
+  </RouterLink>
   <h2>Do you have any dietary restrictions?</h2>
   <button @click="openform">Dietary restrictions</button>
   <div v-show="visibility">
@@ -59,4 +65,8 @@ export default {
       <br />
     </form>
   </div>
+  </div>
 </template>
+
+<style scoped>
+</style>
