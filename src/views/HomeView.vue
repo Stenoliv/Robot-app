@@ -19,7 +19,7 @@ export default {
 
 <template>
   <div class="main" id="app">
-    <div class="header">HungerBot</div>
+    <div class="header" style="font-family: Orbitron; letter-spacing:7px;">HungerBot</div>
     <div class="buttons">
       <div class="title">Don't know what to eat? I can help!</div>
       <HomePageButton v-for="button in buttons" :key="button" v-bind="button" />
