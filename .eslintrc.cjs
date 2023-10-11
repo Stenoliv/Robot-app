@@ -1,3 +1,5 @@
+const { readonly } = require('vue')
+
 /* eslint-env node */
 require('@rushstack/eslint-patch/modern-module-resolution')
 
@@ -10,5 +12,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  "globals": {
+    "google": readonly
   }
 }
