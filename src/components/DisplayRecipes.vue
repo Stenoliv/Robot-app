@@ -32,8 +32,8 @@ export default {
 <template>
   <div class="RecipeContainer">
     <div class="underContainer allowScroll" ref="container" @wheel="a">
-      <SingleRecipe v-for="recipe in recipes"
-        :key="recipe.id"
+      <SingleRecipe v-for="(recipe,i) in recipes"
+        :key="i"
         v-bind="recipe"
       />
     </div>
@@ -51,7 +51,7 @@ export default {
   }
   .underContainer {
     width: 100%;
-    display: inline;
+    display: flex;
     flex-direction: column;
     justify-content: top;
     align-items: center;
