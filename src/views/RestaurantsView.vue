@@ -10,7 +10,7 @@ export default {
         return {
             title: "Restaurants for your pleasure!",
             res: [
-                {restaurant: "Fisa"},
+                {restaurant: ""},
             ]
         }
     }
@@ -25,7 +25,6 @@ export default {
     <h1>{{ title }}</h1>
     <div>This is where the map comes</div>
     <Restaurants
-    v-for="r in res" :key="r" v-bind="r"
     />
     
 
