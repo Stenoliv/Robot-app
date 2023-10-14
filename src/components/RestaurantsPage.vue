@@ -1,7 +1,6 @@
 <template>
   <div id="mainContainer">
     <div>
-<<<<<<< HEAD
       <button type="button" @click.prevent="findRestaurants">Get Restaurants</button>
     </div>
     <div id="map"></div>
@@ -72,66 +71,6 @@
 
         
       },
-=======
-      <button type="button" @click.prevent="getLocation">Get Restaurants</button>
-    </div>
-    <div id="map"></div>
-    <div v-for="result in results" :key="result.name">
-      <strong>{{ result.name }}</strong><br>
-      Address: {{ result.vicinity }}<br>
-      Rating: {{ result.rating }}
-    </div>
-  </div>
-</template>
-  
-<script>
-export default {
-  data() {
-    return {
-      results: [],
-    };
-  },
-  methods: {
-
-    findRestaurants(latitude, longitude) {
-
-      //this.getLocation();
-      const mapOptions = {
-        center: { lat: latitude, lng: longitude },
-        zoom: 14,
-      };
-
-      const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-      const request = {
-        location: new google.maps.LatLng(latitude, longitude),
-        radius: 1000,
-        type: 'restaurant',
-      };
-
-      const service = new google.maps.places.PlacesService(map);
-
-      service.nearbySearch(request, (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          this.results = results;
-          results.forEach((place) => {
-            const marker = new google.maps.Marker({
-              position: place.geometry.location,
-              map: map,
-            });
-
-            const infowindow = new google.maps.InfoWindow({
-              content: `<strong>${place.name}</strong><br>${place.vicinity}`,
-            });
-            //console.log(infowindow)
-
-            marker.addListener('click', () => {
-              infowindow.open(map, marker);
-            });
-          });
-        }
-      });
->>>>>>> 14ac9069e6c487a6876c54713382ec79c3657c5e
     },
     getLocation() {
 
@@ -159,11 +98,9 @@ export default {
         }
       });
     },
-  },
-};
+  };
 </script>
   
-<<<<<<< HEAD
   <style scoped>
   #map {
       height: 500px;
@@ -187,14 +124,6 @@ export default {
   }
 
   </style>
-=======
-<style scoped>
-#map {
-  height: 500px;
-  width: 50%;
-}
-</style>
->>>>>>> 14ac9069e6c487a6876c54713382ec79c3657c5e
   
   
   
