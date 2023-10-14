@@ -13,7 +13,12 @@ export default {
                 {restaurant: ""},
             ]
         }
-    }
+    },
+    mounted() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log("Lat: " + position.coords.latitude + " Lon: " +  position.coords.longitude);
+    });
+  }
 }
 </script>
 
