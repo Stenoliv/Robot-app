@@ -114,20 +114,21 @@ button {
 #mainContainer {
   background-color: rgb(184, 64, 64);
   margin: auto;
-  width: 90%;
+  width: 90vw;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row-reverse;
-  height: 850px;
+  justify-content: center;
+  height: 80vh;
   border-radius: 10px;
 }
 
 #resContainer {
-  width: 55%;
+  width: 40vw;
   display: flex;
   flex-direction: column;
-  margin: 20px;
-  height: 800px;
+  margin: 2vh;
+  height: 75vh;
   overflow: auto;
   font-size: 30px;
 }
@@ -150,9 +151,9 @@ button {
 
 
 #map {
-  height: 800px;
-  width: 40%;
-  margin: 20px;
+  height: 75vh;
+  width: 40vw;
+  margin: 2vh ;
   border-radius: 10px;
 }
 
