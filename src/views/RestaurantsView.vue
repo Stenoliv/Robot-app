@@ -28,7 +28,6 @@ export default {
         <span>Back</span>
     </RouterLink>
     <h1>{{ title }}</h1>
-    <div>This is where the map comes</div>
     <Restaurants
     />
     
