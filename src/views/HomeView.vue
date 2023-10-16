@@ -55,6 +55,7 @@ export default {
     margin-right: -10%;
     padding-left: 10%;
     font-size: 5vw;
+    color: white;
 }
 
 
@@ -66,6 +67,7 @@ export default {
     padding-top: 0.5em;
     width: 100%;
     max-lines: 1;
+    color: white;
 }
 
 .buttons {
