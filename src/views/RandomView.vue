@@ -1,15 +1,19 @@
-<script>
-export default {
-    
-}
-</script>
 
+  <script>
+  import RandomWheel from '@/components/RandomWheel.vue';
+  
+  export default {
+    components: {
+        RandomWheel
+    },
+    data() {
+      return {
+      };
+    }
+  }
+  </script>
+  
 <template>
-    <RouterLink to="/">
-        <span>Back</span>
-    </RouterLink>
-    <h1>Random</h1>
+    <RandomWheel></RandomWheel>
 </template>
-
-<style scoped>
-</style>
+  
