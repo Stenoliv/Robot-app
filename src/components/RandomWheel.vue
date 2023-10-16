@@ -15,8 +15,8 @@
       </div>
     </div>
 
-    <button class="spin" @click="myfunction" :disabled="spinning">SPIN</button>
-    <p v-if="result">Result: {{ result }}</p>
+    <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
+    <p v-if="this.result">Result: {{ result }}</p>
   </div>
 </template>
   
@@ -29,24 +29,43 @@ export default {
     };
   },
   methods: {
-    myfunction() {
+    spinTheWheel() {
+      let rand = Math.floor(Math.random() * 2);
+      console.log(rand)
+      let randResult;
+      if (rand == 0) {
+        randResult = "RANDOM RECIPE";
+      } else if (rand == 1) {
+        randResult = "RANDOM RECIPE";
+      }
+
       if (!this.spinning) {
         this.spinning = true;
         var x = 1024;
         var y = 9999;
-        var deg = Math.floor(Math.random() * (x - y)) + y;
+        var deg = Math.round(Math.random() * (x - y)) + y;
+        console.log(deg)
         document.getElementById('box').style.transform = "rotate(" + deg + "deg";
         var element = document.getElementById('mainbox');
         element.classList.remove('animate');
         setTimeout(() => {
           element.classList.add('animate');
           const sections = ['Iron Man', '7500', 'Bat Man', 'Joker', 'Shoplifters', 'Inception', 'Deadpool', 'Terminator'];
-          const sectionIndex = Math.floor(deg / (360 / sections.length));
+          const sectionIndex = deg / (360) ;
+          console.log(sectionIndex)
           this.result = sections[sectionIndex];
+          console.log(this.result);
           this.spinning = false;
+          console.log(randResult);
         }, 5000);
       }
     },
+    getRandomRestaurants() {
+
+    },
+    getRandomRecipe() {
+
+    }
   },
 };
 </script>
