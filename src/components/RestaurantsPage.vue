@@ -24,6 +24,10 @@ export default {
       results: [],
     };
   },
+  mounted() {
+    this.getLocation();
+  }
+  ,
   methods: {
     findRestaurants(lat, lon) {
 
@@ -51,27 +55,21 @@ export default {
               map: map,
             });
 
-            console.log(place)
+            //console.log(place)
 
             //websiteurl toimar inte, det fanns inget objekt i apin. Försökte göra sådär men namnet apin fetchar matchar inte webbisdan url
-            const websiteUrl = `<a href="https://${place.name.replace(/ /g, '').toLowerCase()}.fi">${place.name}</a>`;
+            const websiteUrl = `<a href="https://www.${place.name.replace(/ /g, '').toLowerCase()}.fi">${place.name}</a>`;
 
             const infowindow = new google.maps.InfoWindow({
               content: `<strong id="info-window">${websiteUrl}<br>${place.vicinity}</strong>`
-
             });
-
             marker.addListener('click', () => {
               infowindow.open(map, marker);
             });
-
-
           });
 
         }
       });
-
-
     },
     getLocation() {
       navigator.permissions.query({ name: "geolocation" }).then((result) => {
@@ -87,19 +85,13 @@ export default {
             this.findRestaurants(lat, lon);
           })
 
-        } else if (result.state === "denied") {
-
+        } else {
           //console.log(result.state)
-
-          console.log("Geolocation is not supported by this browser or not allowed showing Restaurants near Arcada!.");
+          console.log("Geolocation is not supported by this browser or not allowed, showing Restaurants near Arcada!.");
           this.findRestaurants(60.20157545248931, 24.9654922079165)
-
         }
       });
-    },
-    showSomething() {
-      console.log("Hello, is this working?")
-    },
+    }
   },
 
 
