@@ -1,12 +1,10 @@
 :root {
     --margin: 120px;
-    --bakground: #541414ff;
-    --interact-color: rgb(82, 54, 54);
+    background: rgb(121,9,9);
+    background: linear-gradient(90deg, rgba(121,9,9,1) 7%, rgba(145,71,44,1) 100%);    --interact-color: rgb(82, 54, 54);
     --gap: 3em;
 }
 
 body {
-    background-color: var(--bakground);
-    margin: 0;
-    color: white;
+    background: var(--background);
 }
