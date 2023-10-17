@@ -1,3 +1,14 @@
+<template>
+  <div class="RecipeContainer">
+    <div class="underContainer allowScroll" ref="container" @wheel="a">
+      <SingleRecipe v-for="(recipe, key) in this.recipes.results"
+      :key="key"
+      v-bind="recipe"/>
+      <EmptySpace ref="empty_space" />
+    </div>
+  </div>
+</template>
+
 <script>
 import SingleRecipe from '@/components/SingleRecipe.vue';
 import EmptySpace from './EmptySpace.vue';
@@ -7,41 +18,23 @@ export default {
     SingleRecipe,
     EmptySpace
   },
-  methods: {
-
-  },
-  props: [],
+  props: ['recipes'],
   data() {
     return {
-      recipes: [
-        {id: 1, title: "Pasta"},
-        {id: 2, title: "Pasta"},
-        {id: 3, title: "Pasta"},
-        {id: 4, title: "Pasta"},
-        {id: 5, title: "Pasta"},
-        {id: 6, title: "Pasta"},
-        {id: 7, title: "Pasta"},
-        {id: 8, title: "Pasta"},
-        {id: 9, title: "Pasta"},
-        {id: 10, title: "Pasta"},
-        {id: 11, title: "Pasta"},
-      ]
     }
+  },
+  methods: {
+  },
+  watch: {
+    recipes: function(val) {
+      console.log(val.results)
+    }
+  },
+  mounted() {
+    console.log(this.recipes)
   }
 }
 </script>
-
-<template>
-  <div class="RecipeContainer">
-    <div class="underContainer allowScroll" ref="container" @wheel="a">
-      <SingleRecipe v-for="(recipe,i) in recipes"
-        :key="i"
-        v-bind="recipe"
-      />
-      <EmptySpace ref="empty_space" />
-    </div>
-  </div>
-</template>
 
 <style scoped>
   .RecipeContainer {
