@@ -1,5 +1,10 @@
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
+    components: {
+        RouterLink
+    },
     props: [
         'question',
         'link'

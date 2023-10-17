@@ -1,10 +1,11 @@
 <script>
-
 import Restaurants from '../components/RestaurantsPage.vue';
+import { RouterLink } from 'vue-router';
 
 export default {
     components: {
-        Restaurants
+        Restaurants,
+        RouterLink
     },
     data() {
         return {

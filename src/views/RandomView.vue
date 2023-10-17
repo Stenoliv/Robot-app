@@ -1,17 +1,18 @@
+<script>
+import { RouterLink } from 'vue-router';
 
-  <script>
-  
-  export default {
+export default {
     components: {
-        
+        RouterLink
     },
     data() {
       return {
       };
     }
-  }
-  </script>
-  
+}
+</script>
+
 <template>
 </template>
+
   
