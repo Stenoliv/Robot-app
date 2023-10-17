@@ -1,9 +1,11 @@
 <script>
 import SingleRecipe from '@/components/SingleRecipe.vue';
+import EmptySpace from './EmptySpace.vue';
 
 export default {
   components: {
-    SingleRecipe
+    SingleRecipe,
+    EmptySpace
   },
   methods: {
 
@@ -36,6 +38,7 @@ export default {
         :key="i"
         v-bind="recipe"
       />
+      <EmptySpace ref="empty_space" />
     </div>
   </div>
 </template>

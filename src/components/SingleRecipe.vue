@@ -21,7 +21,7 @@ export default {
     },
     setup() {
         const instance = getCurrentInstance()
-        const AnimationDelay = 500
+        const AnimationDelay = 400
         const cssAnimationDelay = AnimationDelay + 'ms'
         return {
             instance,
@@ -34,13 +34,14 @@ export default {
             const recipe = this.$refs[this.id]
             const container = this.instance.parent;
             const array = Array.from(container.refs.container.children)
-            array.forEach((elem,i) => {
+            array.forEach( (elem,i) => {
                 array[i] = elem.children[0]
             })
 
             // Toggle functionality
             if (this.selected) {
                 this.selected = false
+                container.refs.empty_space.hide()
                 array.forEach( elem => {
                     if (elem != recipe) {
                         elem.classList.remove('hide')
@@ -53,17 +54,23 @@ export default {
                 // Parent div controls
                 container.refs.container.classList.remove('disableScroll')
                 container.refs.container.classList.add('allowScroll')
-
-                recipe.scrollIntoView({ behavior: 'instant'})
             } else {
                 this.selected = true
+                container.refs.empty_space.show()
                 
                 // Parent div controls
                 container.refs.container.classList.add('disableScroll')
                 container.refs.container.classList.remove('allowScroll')
                 
-
+                // Add animation to box
                 recipe.classList.add('big')
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        this.$refs['scroll_'+this.id].scrollIntoView({ behavior: 'smooth' })
+                    }, 20)
+                })
+                
+                // Listen for animation end and hide all other children
                 recipe.addEventListener('animationend', () => {
                     array.forEach( elem => {
                         if (elem != recipe) {
@@ -71,9 +78,25 @@ export default {
                             elem.classList.remove('active')
                         }
                     })
+                    container.refs.empty_space.hide()
                 })
-                this.$refs['scroll_'+this.id].scrollIntoView({ behavior: 'smooth'})
+
+                this.loadRecipe()
             }
+        },
+        async loadRecipe() {
+            fetch(
+                "https://discgolf.rasmus-raiha.com/courses/get", {
+                    method: 'GET',
+                    mode: 'no-cors'
+                }
+            ).then((response) => {
+                response.json()
+            }).then((data) => {
+                console.log(data)
+            }).catch((error) => {
+                console.log(error)
+            })
         }
     }
 }
@@ -113,7 +136,6 @@ export default {
 
     .recipeContainer {
         width: 100%;
-        height: fit-content;
         display: flex;
         flex-direction: column;
         justify-content: center;
