@@ -1,6 +1,6 @@
 <template>
   <div id="mainbox" class="mainbox">
-    <div id="box" class="box">
+    <div v-if="wheelVisible == true" id="box" class="box">
       <div class="box1">
         <span class="span1"><b>Iron Man</b></span>
         <span class="span2"><b>7500</b></span>
@@ -13,19 +13,27 @@
         <span class="span3"><b>Deadpool</b></span>
         <span class="span4"><b>Terminator</b></span>
       </div>
-    </div>
+      <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
 
-    <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
+    </div>
+    <div v-if="wheelVisible == false">Hello I am the result!</div>
+    <div id="map"></div>
+    <div id="result"></div>
+
     <p v-if="this.result">Result: {{ result }}</p>
   </div>
 </template>
   
+
 <script>
+
 export default {
   data() {
     return {
       spinning: false,
       result: null,
+      wheelVisible: true,
+      resultRestaurant: []
     };
   },
   methods: {
@@ -35,8 +43,10 @@ export default {
       let randResult;
       if (rand == 0) {
         randResult = "RANDOM RECIPE";
+        this.getRandomRecipe(randResult);
       } else if (rand == 1) {
-        randResult = "RANDOM RECIPE";
+        randResult = "RANDOM RESTAURANT";
+        this.getRandomRestaurants(randResult);
       }
 
       if (!this.spinning) {
@@ -51,20 +61,50 @@ export default {
         setTimeout(() => {
           element.classList.add('animate');
           const sections = ['Iron Man', '7500', 'Bat Man', 'Joker', 'Shoplifters', 'Inception', 'Deadpool', 'Terminator'];
-          const sectionIndex = deg / (360) ;
+          const sectionIndex = deg / (360);
           console.log(sectionIndex)
           this.result = sections[sectionIndex];
-          console.log(this.result);
           this.spinning = false;
-          console.log(randResult);
+          this.wheelVisible = false;
         }, 5000);
       }
     },
-    getRandomRestaurants() {
+    getRandomRestaurants(log) {
+      console.log(log);
+
+      let randomNumber = Math.floor(Math.random() * 20);
+      console.log("Random number: " + randomNumber);
+
+      const mapOptions = {
+        center: { lat: 60.20157545248931, lng: 24.965492207916 },
+        zoom: 14,
+      };
+
+      const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+      const request = {
+        location: new google.maps.LatLng(60.20157545248931, 24.965492207916),
+        radius: 1000,
+        type: ['restaurant']
+      };
+
+      const service = new google.maps.places.PlacesService(map);
+
+      service.nearbySearch(request, (result, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          this.resultRestaurant = result;
+          console.log(this.resultRestaurant[randomNumber].name);
+          document.querySelector("#result").innerHTML = this.resultRestaurant[randomNumber].name;
+          //for (let i = 0; i < this.resultRestaurant.length; i++) {
+          //  console.log(this.resultRestaurant[i]);
+          //}
+        }
+      })
+
 
     },
-    getRandomRecipe() {
-
+    getRandomRecipe(log) {
+      console.log(log);
     }
   },
 };
@@ -219,7 +259,8 @@ span b {
   50% {
     right: -40px;
   }
-}</style>
+}
+</style>
 
 
   
