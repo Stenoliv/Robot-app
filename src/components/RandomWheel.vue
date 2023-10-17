@@ -14,11 +14,12 @@
         <span class="span4"><b>Terminator</b></span>
       </div>
       <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
-
     </div>
-    <div v-if="wheelVisible == false">Hello I am the result!</div>
+
+    <div id="result">
+      {{ finalRestaurant.name }} - {{ finalRestaurant.vicinity }}
+    </div>
     <div id="map"></div>
-    <div id="result"></div>
 
     <p v-if="this.result">Result: {{ result }}</p>
   </div>
@@ -33,21 +34,23 @@ export default {
       spinning: false,
       result: null,
       wheelVisible: true,
-      resultRestaurant: []
+      resultRestaurant: [],
+      randomNumber: null,
+      finalRestaurant: {}
     };
   },
   methods: {
     spinTheWheel() {
       let rand = Math.floor(Math.random() * 2);
-      console.log(rand)
+      console.log("Random number for recipe or restaurant: " + rand)
       let randResult;
-      if (rand == 0) {
+      /*if (rand == 0) {
         randResult = "RANDOM RECIPE";
         this.getRandomRecipe(randResult);
       } else if (rand == 1) {
         randResult = "RANDOM RESTAURANT";
         this.getRandomRestaurants(randResult);
-      }
+      }*/
 
       if (!this.spinning) {
         this.spinning = true;
@@ -66,45 +69,52 @@ export default {
           this.result = sections[sectionIndex];
           this.spinning = false;
           this.wheelVisible = false;
+          this.getRandomFood(rand);
         }, 5000);
       }
     },
-    getRandomRestaurants(log) {
-      console.log(log);
-
-      let randomNumber = Math.floor(Math.random() * 20);
-      console.log("Random number: " + randomNumber);
-
-      const mapOptions = {
-        center: { lat: 60.20157545248931, lng: 24.965492207916 },
-        zoom: 14,
-      };
-
-      const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-      const request = {
-        location: new google.maps.LatLng(60.20157545248931, 24.965492207916),
-        radius: 1000,
-        type: ['restaurant']
-      };
-
-      const service = new google.maps.places.PlacesService(map);
-
-      service.nearbySearch(request, (result, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          this.resultRestaurant = result;
-          console.log(this.resultRestaurant[randomNumber].name);
-          document.querySelector("#result").innerHTML = this.resultRestaurant[randomNumber].name;
-          //for (let i = 0; i < this.resultRestaurant.length; i++) {
-          //  console.log(this.resultRestaurant[i]);
-          //}
-        }
-      })
+    getRandomFood(number) {
+      // Random getter for recipe
+      if (number == 0) {
+        console.log("Recipe")
 
 
-    },
-    getRandomRecipe(log) {
-      console.log(log);
+        // Random getter for restaurants
+      } else if (number == 1) {
+        console.log("Restaurant")
+
+        let randomNumber = Math.floor(Math.random() * 20);
+        console.log("Random number: " + randomNumber);
+
+        const mapOptions = {
+          center: { lat: 60.20157545248931, lng: 24.965492207916 },
+          zoom: 14,
+        };
+
+        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        const request = {
+          location: new google.maps.LatLng(60.20157545248931, 24.965492207916),
+          radius: 1000,
+          type: ['restaurant']
+        };
+
+        const service = new google.maps.places.PlacesService(map);
+
+        service.nearbySearch(request, (result, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            this.resultRestaurant = result;
+            console.log(this.resultRestaurant[randomNumber].name);
+            //this.finalRestaurant = "Name: " + this.resultRestaurant[randomNumber].name + " Adress: " + this.resultRestaurant[randomNumber].vicinity;
+            this.finalRestaurant = this.resultRestaurant[randomNumber];
+            console.log(this.finalRestaurant)
+            //document.querySelector("#result").innerHTML = this.resultRestaurant[randomNumber].name;
+            //for (let i = 0; i < this.resultRestaurant.length; i++) {
+            //  console.log(this.resultRestaurant[i]);
+            //}
+          }
+        })
+      }
     }
   },
 };
