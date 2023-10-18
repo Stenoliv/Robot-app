@@ -76,8 +76,8 @@ export default {
       }
     },
     async getRandomRecipe() {
-      const apiKey = "bf4c1e6e5ace425e93abc0e4433236af";
-      const data = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=bf4c1e6e5ace425e93abc0e4433236af&number=1`)
+      const apiKey = "";
+      const data = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=&number=1`)
       const resultData = await data.json();
       this.randomRecipe = resultData;
       console.log(resultData);
