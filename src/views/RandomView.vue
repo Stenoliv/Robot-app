@@ -11,12 +11,49 @@ export default {
 </script>
 
 <template>
-    <RouterLink to="/">
-        <span>Back</span>
-    </RouterLink>
-    <h1>Random</h1>
+    <div class="random-container-main">
+        <RouterLink to="/" class="back-button">
+            <span>Back</span>
+        </RouterLink>
+        <h1>Random</h1>
+    </div>
     <RandomWheel />
 </template>
 
 
-<style scoped></style>
+<style scoped>
+    * {
+        --top-button-border-radius: 20px;
+        --top-buttons-width: 20vw;
+        --top-bar-height: 5vh;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .random-container-main {
+        width: 100%;
+        height: var(--top-bar-height);
+        background-color: rgb(99, 99, 99);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: wheat;
+    }
+
+    .back-button {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: var(--top-buttons-width);
+        height: var(--top-bar-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: wheat;
+        text-decoration: none;
+        border-radius: 0px 0px var(--top-button-border-radius) 0px;
+    }
+</style>

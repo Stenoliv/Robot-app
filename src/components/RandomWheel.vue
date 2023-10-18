@@ -16,9 +16,6 @@
         </div>
         <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
       </div>
-
-      <p v-if="this.result">Result: {{ result }}</p>
-
     </div>
     <div v-show="this.recipeOrRestaurant == 1 && this.visible == true" id="randContainer">
 
@@ -29,16 +26,20 @@
 
     </div>
     <div v-show="this.recipeOrRestaurant == 0 && this.visible == true" id="recipeCont">
-      {{ this.randomRecipe }}
-      <!--{{ this.randomRecipe.recipes[0].title }}-->
+      <RandomRecipeView v-bind="randomRecipe"/>
     </div>
   </div>
 </template>
   
 
 <script>
+import axios from 'axios'
+import RandomRecipeView from '@/components/RandomRecipeView.vue';
 
 export default {
+  components: {
+    RandomRecipeView
+  },
   data() {
     return {
       spinning: false,
@@ -75,18 +76,20 @@ export default {
 
       }
     },
-    async getRandomRecipe() {
-      const apiKey = "";
-      const data = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=&number=1`)
-      const resultData = await data.json();
-      this.randomRecipe = resultData;
-      console.log(resultData);
+    getRandomRecipe() {
+      axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${import.meta.env.VITE_API_KEY}&number=1`)
+      .then((response) => {
+        if (response.status == 200) {
+          this.randomRecipe = response.data.recipes[0];
+        }
+        console.log(response.data);
+      })
     },
     getRandomFood(number) {
       // Random getter for recipe
       if (number == 0) {
         console.log("Recipe")
-        //this.getRandomRecipe();
+        this.getRandomRecipe();
         this.randomRecipe = "Kebab ranchot"
 
         // Random getter for restaurants
@@ -152,15 +155,13 @@ export default {
 }
 
 #recipeCont {
+  position: relative;
   display: flex;
-  flex-direction: row-reverse;
-  width: 50%;
-  margin: auto;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 10px;
+  flex-direction: column;
   justify-content: center;
-  color: #000;
+  align-items: center;
+  width: 50%;
+  border-radius: 10px;
 }
 
 #randContainer {
