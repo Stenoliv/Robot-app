@@ -4,6 +4,7 @@
             <div v-if="!selected" class="simpleView" @click="toggleRecipe()">
                 <img :src="image" alt="Image of food" />
                 <h2>{{ title }}</h2>
+                <h3 class="prepTime">{{ readyInMinutes }}:Minutes</h3>
             </div>
             <div v-else class="detailedView">
                 <div class="simpleView">
@@ -13,6 +14,7 @@
                             X
                         </div>
                         <h2>{{ title }}</h2>
+                        <h3 class="prepTime">{{ readyInMinutes }}:Minutes</h3>
                     </div>
                 </div>
                 <div class="recipeInstructions">
@@ -39,7 +41,7 @@ export default {
     components: {
     InstructionStepView,
 },
-    props: ['id','title','image','imageType','original','analyzedInstructions','extendedIngredients','spoonacularSourceUrl'],
+    props: ['id','title','image','imageType','original','analyzedInstructions','extendedIngredients','spoonacularSourceUrl','readyInMinutes'],
     data() {
         return {
             selected: false,
@@ -177,10 +179,14 @@ export default {
     }
 
     h2 {
-        font-size: 40px;
+        font-size: 35px;
         color: whitesmoke;
     }
-
+    .prepTime{
+        font-size: 35px;
+        color: whitesmoke;
+        margin-right: 140px;
+    }
 
     /*Styling for simple view*/
     .simpleView {
@@ -201,7 +207,7 @@ export default {
     .simpleView h2 {
         width: 90%;
         text-align: start;
-        margin-right: 100px;
+        margin-right: 40px;
     }
 
     /*Styling of detailedView for recipe AKA "Opened/Selected" reecipe*/
