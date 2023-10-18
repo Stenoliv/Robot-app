@@ -6,11 +6,6 @@ export default {
     components: {
         RouterLink,
         RandomWheel
-    },
-    data() {
-        return {
-
-        }
     }
 }
 </script>
@@ -20,8 +15,9 @@ export default {
         <span>Back</span>
     </RouterLink>
     <h1>Random</h1>
-    <RandomWheel />
+    <<RandomWheel />
 </template>
+
 
 <style scoped>
 </style>
