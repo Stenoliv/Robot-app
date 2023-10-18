@@ -180,11 +180,11 @@ export default {
     }
 
     h2 {
-        font-size: 40px;
+        font-size: 35px;
         color: whitesmoke;
     }
     .prepTime{
-        font-size: 40px;
+        font-size: 35px;
         color: whitesmoke;
         margin-right: 140px;
     }
@@ -208,7 +208,7 @@ export default {
     .simpleView h2 {
         width: 90%;
         text-align: start;
-        margin-right: 100px;
+        margin-right: 40px;
     }
 
     /*Styling of detailedView for recipe AKA "Opened/Selected" reecipe*/
