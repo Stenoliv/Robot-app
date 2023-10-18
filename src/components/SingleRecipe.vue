@@ -160,9 +160,9 @@ export default {
         align-items: center;
         width: 80%;
         box-shadow: 0 0 var(--recipeGap) black;
-        background-color: white;
+        background-color: #6C3939;
         margin: var(--recipeGap);
-        border-radius: 20px;
+        border-radius: 30px;
         transition: var(--transition) ease-in-out;
     }
     .Recipe:hover:not(.big) {
@@ -171,6 +171,7 @@ export default {
 
     h2 {
         font-size: 40px;
+        color: whitesmoke;
     }
 
 
@@ -187,6 +188,7 @@ export default {
         width: fit-content;
         height: fit-content;
         margin-right: 30px ;
+        border-radius: 10%;
     }
 
     .simpleView h2 {
@@ -224,7 +226,7 @@ export default {
         color: white;
         background-color: rgb(49, 49, 49);
         border: 0px solid white;
-        border-radius: 10px;
+        border-radius: 10%;
         width: 80px;
         height: 60px;
         display: flex;
@@ -256,9 +258,11 @@ export default {
         font-size: 30px;
         margin: 25px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: whitesmoke;
     }
     .title{
         margin: 25px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: whitesmoke;
     }
 </style>
