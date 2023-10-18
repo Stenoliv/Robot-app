@@ -8,9 +8,9 @@ export default {
   data() {
     return {
       buttons: [
-        { question: 'Do you want to cook food yourself?', link: 'recipe' },
-        { question: 'Or eat at a nearby restaurant?', link: 'restaurant' },
-        { question: 'Or spin the wheel for a random option', link: 'random' }
+        { question: 'Do you want to cook food yourself?', link: 'recipe', image: '../../src/assets/images/recipe.jpg' },
+        { question: 'Or eat at a nearby restaurant?', link: 'restaurant', image: '../../src/assets/images/restaurant.jpg' },
+        { question: 'Or spin the wheel for a random option', link: 'random', image: '../../src/assets/images/random.jpg' }
       ]
     }
   }
@@ -61,6 +61,7 @@ export default {
   padding-top: 0.5em;
   width: 100%;
   max-lines: 1;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .buttons {

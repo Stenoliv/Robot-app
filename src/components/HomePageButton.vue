@@ -5,14 +5,14 @@ export default {
   components: {
     RouterLink
   },
-  props: ['question', 'link']
+  props: ['question', 'link','image']
 }
 </script>
 
 <template>
   <RouterLink :to="link" class="button-box recipe">
     <div class="question">{{ question }}</div>
-    <img class="home-img" src="@/assets/images/food.jpg" alt="recipe-img" />
+    <img class="home-img" :src= "image" alt="recipe-img" />
   </RouterLink>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   background-color: var(--interact-color);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease-in-out;
-  border: 5px solid black;
+  border: 3px solid black;
   color: white;
 }
 
@@ -37,6 +37,7 @@ export default {
   width: 20%;
   height: 100%;
   font-size: 2vw;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .home-img {
   position: absolute;
