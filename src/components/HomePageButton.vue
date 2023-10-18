@@ -5,14 +5,16 @@ export default {
   components: {
     RouterLink
   },
-  props: ['question', 'link','image']
+  props: ['question', 'link','image'],
 }
 </script>
 
 <template>
   <RouterLink :to="link" class="button-box recipe">
     <div class="question">{{ question }}</div>
-    <img class="home-img" :src= "image" alt="recipe-img" />
+    <img :id="question" class="home-img" v-if="this.image == 0" src="@/assets/images/recipe.jpg" alt="recipe-img" />
+    <img :id="question" class="home-img" v-if="this.image == 1" src="@/assets/images/restaurant.jpg" alt="recipe-img" />
+    <img :id="question" class="home-img" v-if="this.image == 2" src="@/assets/images/random.jpg" alt="recipe-img" />
   </RouterLink>
 </template>
 

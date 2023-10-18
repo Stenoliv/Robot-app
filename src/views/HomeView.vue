@@ -8,9 +8,9 @@ export default {
   data() {
     return {
       buttons: [
-        { question: 'Do you want to cook food yourself?', link: 'recipe', image: '../../src/assets/images/recipe.jpg' },
-        { question: 'Or eat at a nearby restaurant?', link: 'restaurant', image: '../../src/assets/images/restaurant.jpg' },
-        { question: 'Or spin the wheel for a random option', link: 'random', image: '../../src/assets/images/random.jpg' }
+        { question: 'Do you want to cook food yourself?', link: 'recipe', image: 0 },
+        { question: 'Or eat at a nearby restaurant?', link: 'restaurant', image: 1 },
+        { question: 'Or spin the wheel for a random option', link: 'random', image: 2 }
       ]
     }
   }
@@ -20,7 +20,7 @@ export default {
 <template>
   <div class="main" id="app">
     
-    <div class="header" style="font-family: Orbitron; letter-spacing:7px;">HungerBot<img id="mainLogo" src="..\assets\images\hungerbot.png" alt="HungerBot logo"></div>
+    <div class="header" style="font-family: Orbitron; letter-spacing:7px;">HungerBot<img id="mainLogo" src="@\assets\images\hungerbot.png" alt="HungerBot logo"></div>
     
     <div class="buttons">
       <div class="title">Don't know what to eat? I can help!</div>
