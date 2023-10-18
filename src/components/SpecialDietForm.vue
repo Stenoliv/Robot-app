@@ -6,22 +6,29 @@
       </RouterLink>
       <h1>Search for recipes</h1>
       <div class="show-hide-button" @click="toggleFilter()">
-        <span v-if="show">Close</span>
+        <span v-if="show">Filter</span>
         <span v-else>Open</span>
       </div>
     </div>
     <div class="filter-container" v-if="show">
       <div class="filter-container-left">
         <div class="filter-container-box">
-          <span>Search For Recipes</span>
-          <div>
-            <input type="text" id="search-query" placeholder='Example: "pasta" or "rice"...'>
+          <div class="filter-containter-search">
+            <span>Search For Recipes</span>
+            <div>
+              <input type="text" id="search-query" placeholder='Example: "pasta" or "rice"...'>
+            </div>
+          </div>
+          <div class="filter-container-max-time">
+            <button @click="decrementMaxTime">-</button>
+            <span>{{ max_time }}</span>
+            <button @click="incrementMaxTime">+</button>
           </div>
         </div>
         <div class="filter-container-box">
           <span>Dietary preferences</span>
           <div class="filter-preferences-container">
-            <DietaryPreference v-for="(diet) in dietary_list"
+            <FilterButton v-for="(diet) in dietary_list"
             :key="diet.id"
             v-bind="diet"
             v-model="dietary"/>
@@ -32,7 +39,7 @@
         <div class="filter-container-box">
           <span>Allergies</span>
           <div class="filter-allergies-container">
-            <IntoleranceCheckbox
+            <FilterButton
               v-for="item in Intolerce"
               :key="item.id"
               v-bind="item"
@@ -43,7 +50,7 @@
         <div class="filter-container-box">
           <span>Cuisines</span>
           <div class="filter-cuisine-container">
-            <CuisineView v-for="cuisine in cuisine_list"
+            <FilterButton v-for="cuisine in cuisine_list"
             :key="cuisine.id"
             v-bind="cuisine"
             v-model="cuisines"/>
@@ -56,14 +63,13 @@
 
 <script>
 import { RouterLink } from 'vue-router'
-import IntoleranceCheckbox from '@/components/IntoleranceCheckbox.vue'
-import DietaryPreference from '@/components/DietaryPreference.vue'
-import CuisineView from '@/components/CuisineView.vue'
+import FilterButton from '@/components/FilterButton.vue'
 
 export default {
   data() {
     return {
       show: false,
+      max_time: 60,
       dietary: [],
       allergies: [],
       cuisines: [],
@@ -98,18 +104,21 @@ export default {
     toggleFilter() {
       if (this.show) {
         this.show = false
-        this.$parent.toggleMargin(this.show)
+        // this.$parent.loadInRecipes()
       } else {
         this.show = true
-        this.$parent.toggleMargin(this.show)
       }
+    },
+    incrementMaxTime() {
+      this.max_time += 60
+    },
+    decrementMaxTime() {
+      this.max_time -= 60
     }
   },
   components: {
     RouterLink,
-    IntoleranceCheckbox,
-    DietaryPreference,
-    CuisineView
+    FilterButton
   }
 }
 </script>

@@ -18,7 +18,6 @@ export default {
   },
   data() {
     return {
-      margin_top: 5 + 'vh',
       query: "",
       diet: "",
       intolerances: "",
@@ -58,14 +57,6 @@ export default {
           console.log('API key required')
         }
       }) 
-    },
-    toggleMargin(value) {
-      console.log('switching margin top')
-      if (value) {
-        this.margin_top = 25 + 'vh'
-      } else {
-        this.margin_top = 5 + 'vh'
-      }
     }
   },
   mounted() {
@@ -96,7 +87,7 @@ export default {
   }
 
   .container-recipe-list {
-    margin-top: v-bind('margin_top');
+    margin-top: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;

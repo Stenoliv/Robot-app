@@ -70,7 +70,12 @@ export default {
                 })
                 
                 recipe.classList.remove('big')
-                
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        this.$refs['scroll_'+this.id].scrollIntoView({ behavior: 'auto' })
+                    }, 20)
+                })
+
                 // Parent div controls
                 container.refs.container.classList.remove('disableScroll')
                 container.refs.container.classList.add('allowScroll')
@@ -126,7 +131,7 @@ export default {
         }
 
         to {
-            height: calc(86vh - var(--recipeGap) * 3);
+            height: calc(95vh - var(--recipeGap) * 2);
         }
     }
 
@@ -241,6 +246,7 @@ export default {
 
     .recipeInstructions {
         height: 100%;
+        width: 100%;
         overflow: auto;
     }
 </style>
