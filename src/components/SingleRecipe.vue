@@ -16,7 +16,9 @@
                     </div>
                 </div>
                 <div class="recipeInstructions">
-                    <span v-for="(original, key, index) in extendedIngredients[0].original" key:index>{{ original }}</span>
+                    <h2 class="title">Ingredients</h2>
+                    <div v-for="(original, key, index) in extendedIngredients" :key="index" id="original">{{ original.original }}</div><br>
+                    <h2 class="title">Instructions</h2>
                     <InstructionStepView v-for="(step, key, index) in analyzedInstructions[0].steps"
                     :key="index"
                     v-bind="step"/>
@@ -182,16 +184,15 @@ export default {
     }
 
     .simpleView img {
-        width: 20rem;
-        height: 14rem;
-        border-radius: 10px;
-        margin: 2rem;
+        width: fit-content;
+        height: fit-content;
+        margin-right: 30px ;
     }
 
     .simpleView h2 {
-        width: 80%;
+        width: 90%;
         text-align: start;
-        padding-left: 3rem;
+        margin-right: 100px;
     }
 
     /*Styling of detailedView for recipe AKA "Opened/Selected" reecipe*/
@@ -220,11 +221,12 @@ export default {
         top: 0;
         right: 0;
         margin: 10px;
-        background-color: aqua;
+        color: white;
+        background-color: rgb(49, 49, 49);
         border: 0px solid white;
         border-radius: 10px;
-        width: 15%;
-        height: 8%;
+        width: 80px;
+        height: 60px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -248,5 +250,15 @@ export default {
         height: 100%;
         width: 100%;
         overflow: auto;
+        width: 100%;
+    }
+    #original{
+        font-size: 30px;
+        margin: 25px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .title{
+        margin: 25px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
 </style>
