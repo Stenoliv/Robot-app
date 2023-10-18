@@ -19,7 +19,9 @@ export default {
 
 <template>
   <div class="main" id="app">
-    <div class="header" style="font-family: Orbitron; letter-spacing:7px;">HungerBot</div>
+    
+    <div class="header" style="font-family: Orbitron; letter-spacing:7px;">HungerBot<img id="mainLogo" src="..\assets\images\hungerbot.png" alt="HungerBot logo"></div>
+    
     <div class="buttons">
       <div class="title">Don't know what to eat? I can help!</div>
       <HomePageButton v-for="button in buttons" :key="button" v-bind="button" />
@@ -30,6 +32,14 @@ export default {
 <style scoped>
 /* Main page style \/ */
 
+#mainLogo {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
 .main {
   margin: 0;
   padding: 0;
@@ -39,6 +49,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 75%;
   height: 100%;
+  
 }
 
 /* Page Header style */
@@ -51,6 +62,10 @@ export default {
   margin-right: -10%;
   padding-left: 10%;
   font-size: 5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+  align-items:center;
 }
 
 /* restaurant, recipe and random buttons style \/ */
