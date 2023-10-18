@@ -19,7 +19,7 @@
                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                 </div>
                 <div v-show="!loading" class="recipeInstructions">
-                    <InstructionStepView v-for="(step, key, index) in information.analyzedInstructions[0].steps"
+                    <InstructionStepView v-for="(step, key, index) in analyzedInstructions[0].steps"
                     :key="index"
                     v-bind="step"/>
                 </div>

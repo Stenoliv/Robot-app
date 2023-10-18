@@ -1,12 +1,15 @@
 <template>
-  <SpecialDietForm class="container"/>
-  <DisplayRecipe class="RecipeContainer" :recipes="recipes"/>
+  <div class="container-recipe-view">
+    <SpecialDietForm class="container-form"/>
+    <DisplayRecipe :recipes="recipes" class="container-recipe-list"/>
+  </div>
 </template>
 
 <script>
 import SpecialDietForm from '@/components/SpecialDietForm.vue'
 import DisplayRecipe from '@/components/DisplayRecipes.vue'
 import axios from 'axios'
+import jsonData from "@/assets/json/request_data.json";
 
 export default {
   components: {
@@ -15,27 +18,12 @@ export default {
   },
   data() {
     return {
+      margin_top: 5 + 'vh',
       query: "",
       diet: "",
       intolerances: "",
       // Användeds som default för att inte API quotan sku ta slut
-      recipes: {
-        results:[
-          {id:782585,title:"Cannellini Bean and Asparagus Salad with Mushrooms",image:"https://spoonacular.com/recipeImages/782585-312x231.jpg",imageType:"jpg"},
-          {id:716426,title:"Cauliflower, Brown Rice, and Vegetable Fried Rice",image:"https://spoonacular.com/recipeImages/716426-312x231.jpg",imageType:"jpg"},
-          {id:715497,title:"Berry Banana Breakfast Smoothie",image:"https://spoonacular.com/recipeImages/715497-312x231.jpg",imageType:"jpg"},
-          {id:715415,title:"Red Lentil Soup with Chicken and Turnips",image:"https://spoonacular.com/recipeImages/715415-312x231.jpg",imageType:"jpg"},
-          {id:716406,title:"Asparagus and Pea Soup: Real Convenience Food",image:"https://spoonacular.com/recipeImages/716406-312x231.jpg",imageType:"jpg"},
-          {id:644387,title:"Garlicky Kale",image:"https://spoonacular.com/recipeImages/644387-312x231.jpg",imageType:"jpg"},
-          {id:715446,title:"Slow Cooker Beef Stew",image:"https://spoonacular.com/recipeImages/715446-312x231.jpg",imageType:"jpg"},
-          {id:782601,title:"Red Kidney Bean Jambalaya",image:"https://spoonacular.com/recipeImages/782601-312x231.jpg",imageType:"jpg"},
-          {id:795751,title:"Chicken Fajita Stuffed Bell Pepper",image:"https://spoonacular.com/recipeImages/795751-312x231.jpg",imageType:"jpg"},
-          {id:766453,title:"Hummus and Za'atar",image:"https://spoonacular.com/recipeImages/766453-312x231.jpg",imageType:"jpg"}
-        ],
-        offset:0,
-        number:10,
-        totalResults:5220
-      }
+      recipes: jsonData
     }
   },
   methods: {
@@ -43,9 +31,21 @@ export default {
       axios.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + import.meta.env.VITE_API_KEY 
         + "&query=" + this.query 
         + "&diet=" + this.diet
-        + "&intolerances=" + this.intolerances)
-        .then((response) => { 
-          this.recipes = response.data
+        + "&intolerances=" + this.intolerances
+        + "&addRecipeInformation=" + true
+        + "&instructionsRequired= " + true
+        + "&fillIngredients=" + true
+        + "&number=" + 10 // How many recipe responses
+        )
+        .then((response) => {
+          if (response.status == 200) {
+            this.recipes = response.data
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 401) {
+            console.log('API key required')
+          }
         })
     },
     getDetails(id) {
@@ -53,21 +53,52 @@ export default {
       .then((response) => {
         this.recipes = response.data
       })
+      .catch((error) => {
+        if (error.response.status == 401) {
+          console.log('API key required')
+        }
+      }) 
+    },
+    toggleMargin(value) {
+      console.log('switching margin top')
+      if (value) {
+        this.margin_top = 25 + 'vh'
+      } else {
+        this.margin_top = 5 + 'vh'
+      }
     }
   },
   mounted() {
-    console.log("loaded")
-    console.log(this.recipes)
-    //this.loadInRecipes()
+    // load in recipes at page load
+    // this.loadInRecipes()
   }
 }
 </script>
 
 <style scoped>
- .container {
-    height: 16vh;
+  .container-recipe-view {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .RecipeContainer {
-    height: 84vh;
+
+  .container-form {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+  }
+
+  .container-recipe-list {
+    margin-top: v-bind('margin_top');
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

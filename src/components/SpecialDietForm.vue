@@ -1,13 +1,77 @@
+<template>
+  <div class="filter-container-main">
+    <div class="top-bar">
+      <RouterLink to="/">
+        <span class="back-button">Back</span>
+      </RouterLink>
+      <h1>Search for recipes</h1>
+      <div class="show-hide-button" @click="toggleFilter()">
+        <span v-if="show">Close</span>
+        <span v-else>Open</span>
+      </div>
+    </div>
+    <div class="filter-container" v-if="show">
+      <div class="filter-container-left">
+        <div class="filter-container-box">
+          <span>Search For Recipes</span>
+          <div>
+            <input type="text" id="search-query" placeholder='Example: "pasta" or "rice"...'>
+          </div>
+        </div>
+        <div class="filter-container-box">
+          <span>Dietary preferences</span>
+          <div class="filter-preferences-container">
+            <DietaryPreference v-for="(diet) in dietary_list"
+            :key="diet.id"
+            v-bind="diet"
+            v-model="dietary"/>
+          </div>
+        </div>
+      </div>
+      <div class="filter-container-right">
+        <div class="filter-container-box">
+          <span>Allergies</span>
+          <div class="filter-allergies-container">
+            <IntoleranceCheckbox
+              v-for="item in Intolerce"
+              :key="item.id"
+              v-bind="item"
+              v-model="allergies"
+            />
+          </div>
+        </div>
+        <div class="filter-container-box">
+          <span>Cuisines</span>
+          <div class="filter-cuisine-container">
+            <CuisineView v-for="cuisine in cuisine_list"
+            :key="cuisine.id"
+            v-bind="cuisine"
+            v-model="cuisines"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
 import { RouterLink } from 'vue-router'
-import IntoleranceCheckbox from './IntoleranceCheckbox.vue'
+import IntoleranceCheckbox from '@/components/IntoleranceCheckbox.vue'
+import DietaryPreference from '@/components/DietaryPreference.vue'
+import CuisineView from '@/components/CuisineView.vue'
 
 export default {
   data() {
     return {
-      dietPref: '',
-      visibility: false,
+      show: false,
+      dietary: [],
       allergies: [],
+      cuisines: [],
+      dietary_list: [
+        { id: 1, value: 'vegetarian', title: 'Vegetarian'},
+        { id: 2, value: 'vegan', title: 'Vegan'},
+        { id: 3, value: 'gluten free', title: 'Gluten Free'},
+      ],
       Intolerce: [
         { id: 'grain', value: 'Grain', title: 'Grain' },
         { id: 'dairy', value: 'Dairy', title: 'Dairy' },
@@ -17,56 +81,176 @@ export default {
         { id: 'fish', value: 'Fish', title: 'fish' },
         { id: 'eggs', value: 'Eggs', title: 'Eggs' },
         { id: 'peanut', value: 'Peanut', title: 'Peanut' }
+      ],
+      cuisine_list: [
+        { id: 'cuisine-italian', value: 'italian', title: 'Italian'},
+        { id: 'cuisine-greek', value: 'greek', title: 'Greek'},
+        { id: 'cuisine-american', value: 'american', title: 'American'},
+        { id: 'cuisine-indian', value: 'indian', title: 'Indian'},
+        { id: 'cuisine-chinese', value: 'chinese', title: 'Chinese'},
+        { id: 'cuisine-japansese', value: 'japansese', title: 'Japanese'},
+        { id: 'cuisine-thai', value: 'thai', title: 'Thai'},
+        { id: 'cuisine-vietnamese', value: 'vietnamese', title: 'Vietnamese'},
       ]
     }
   },
   methods: {
-    openform() {
-      if (this.visibility == false) this.visibility = true
-      else this.visibility = false
+    toggleFilter() {
+      if (this.show) {
+        this.show = false
+        this.$parent.toggleMargin(this.show)
+      } else {
+        this.show = true
+        this.$parent.toggleMargin(this.show)
+      }
     }
   },
   components: {
     RouterLink,
-    IntoleranceCheckbox
+    IntoleranceCheckbox,
+    DietaryPreference,
+    CuisineView
   }
 }
 </script>
 
-<template>
-  <div>
-    <RouterLink to="/">
-    <span>Back</span>
-  </RouterLink>
-  <h2>Do you have any dietary restrictions?</h2>
-  <button @click="openform">Dietary restrictions</button>
-  <div v-show="visibility">
-    <form @submit.prevent="submitForm">
-      <span>Dietary preferences</span>
-
-      <input type="radio" value="Vegetarian" v-model="dietPref" />
-      <label>Vegetarian</label>
-
-      <input type="radio" value="Vegan" v-model="dietPref" />
-      <label>Vegan</label>
-      <br />
-      <br />
-      <span>Allergies</span>
-      <div>
-        <IntoleranceCheckbox
-          v-for="item in Intolerce"
-          :key="item.id"
-          v-bind="item"
-          v-model="allergies"
-        />
-      </div>
-      <pre>{{ allergies }}</pre>
-      <br />
-      <br />
-    </form>
-  </div>
-  </div>
-</template>
-
 <style scoped>
+* {
+  --top-button-border-radius: 20px;
+  --top-buttons-width: 20vw;
+  --top-bar-height: 5vh;
+}
+
+.filter-container-main {
+  background-color: rgb(133, 170, 202);
+  position: relative;
+  width: 100vw;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0px 5px 50px black;
+}
+
+.top-bar {
+  width: 100%;
+  height: var(--top-bar-height);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--top-buttons-width);
+  height: var(--top-bar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: wheat;
+  text-decoration: none;
+  border-radius: 0px 0px var(--top-button-border-radius) 0px;
+}
+
+.show-hide-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--top-buttons-width);
+  height: var(--top-bar-height);
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: wheat;
+  text-decoration: none;
+  border-radius: 0px 0px 0px var(--top-button-border-radius);
+}
+
+.top-bar h1{
+  color: black;
+}
+
+.filter-container {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.filter-container-left {
+  width: 49.5%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  margin-right: 0.5%;
+}
+
+.filter-container-right {
+  width: 49.5%;
+  height: 20vh;
+  margin-left: 0.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.filter-container-box {
+  width: 90%;
+  height: 5vh;
+  margin: 1vh 0vh;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: start;
+  align-items: center;
+}
+
+
+/* Styles for different parts */
+
+.filter-allergies-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.filter-preferences-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.filter-cuisine-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+}
+
 </style>
