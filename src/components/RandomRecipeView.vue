@@ -3,23 +3,14 @@
         <img :src="image" alt="Image of recipe">
         <div>
             {{ title }}
-
-            <img :src="qr" alt="qr">
+            <img v-bind:src="'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + this.spoonacularSourceUrl" alt="qr">
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['title','image','spoonacularSourceUrl'],
-    data() {
-        return {
-            qr: null
-        }
-    },
-    mounted() {
-        this.qr = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+this.spoonacularSourceUrl
-    }
+    props: ['title','image','spoonacularSourceUrl']
 }
 </script>
 

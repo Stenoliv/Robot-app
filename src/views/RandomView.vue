@@ -40,6 +40,7 @@ export default {
         justify-content: center;
         align-items: center;
         color: wheat;
+        box-shadow: 0 5px 50px black;
     }
 
     .back-button {
@@ -55,5 +56,7 @@ export default {
         color: wheat;
         text-decoration: none;
         border-radius: 0px 0px var(--top-button-border-radius) 0px;
+        font-size: 1.75rem;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
 </style>

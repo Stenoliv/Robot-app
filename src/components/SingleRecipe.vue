@@ -24,7 +24,7 @@
                     v-bind="step"/>
                     <div class="qr-code-container">
                         <h2>Link to recipe</h2>
-                        <img :src="qr" alt="Qr-Code">
+                        <img v-bind:src="'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + this.spoonacularSourceUrl" alt="Qr-Code">
                     </div>
                 </div>
             </div>
@@ -43,7 +43,6 @@ export default {
     data() {
         return {
             selected: false,
-            qr: null
         }
     },
     setup() {

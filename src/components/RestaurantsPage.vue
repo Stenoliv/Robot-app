@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <button type="button" @click.prevent="getLocation">Get Restaurants</button>
-  </div>
   <div id="mainContainer">
     <div id="map"></div>
     <div id="resContainer">
@@ -105,13 +102,14 @@ button {
 
 #mainContainer {
   background-color: rgb(184, 64, 64);
-  margin: auto;
   width: 90vw;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row-reverse;
   justify-content: center;
   height: 80vh;
+  margin: auto;
+  margin-top: 7.5vh;
   border-radius: 10px;
 }
 
