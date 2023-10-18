@@ -21,6 +21,8 @@ export default {
       query: "",
       diet: "",
       intolerances: "",
+      max_time: 60,
+      cuisines: "",
       // Användeds som default för att inte API quotan sku ta slut
       recipes: jsonData
     }
@@ -31,6 +33,9 @@ export default {
         + "&query=" + this.query 
         + "&diet=" + this.diet
         + "&intolerances=" + this.intolerances
+        + "&cuisines=" + this.cuisines
+        + "&maxReadyTime=" + this.max_time
+        + "&"
         + "&addRecipeInformation=" + true
         + "&instructionsRequired= " + true
         + "&fillIngredients=" + true
@@ -47,16 +52,31 @@ export default {
           }
         })
     },
-    getDetails(id) {
-      axios.get("https://api.spoonacular.com/recipes/" + id + "/information?includeNutrition=false")
-      .then((response) => {
-        this.recipes = response.data
-      })
-      .catch((error) => {
-        if (error.response.status == 401) {
-          console.log('API key required')
-        }
-      }) 
+    setVariables(query, max_time, diet, allergies, cuisine) {
+      if (query != "" && query != null) {
+        this.query = query
+      } else {
+        this.query = ""
+      }
+      this.max_time = max_time
+      //Diet filter
+      if (diet != "" && diet != null) {
+        this.diet = diet.toString()
+      } else {
+        this.diet = ""
+      }
+      //Allergies filter
+      if (allergies != "" && allergies != null) {
+        this.intolerances = allergies.toString()
+      } else {
+        this.intolerances = ""
+      }
+      //Cuisine filter
+      if (cuisine != "" && cuisine != null) {
+        this.cuisines = cuisine.toString()
+      } else {
+        this.cuisines = ""
+      }
     }
   },
   mounted() {

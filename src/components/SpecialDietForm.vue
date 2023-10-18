@@ -15,9 +15,7 @@
         <div class="filter-container-box">
           <div class="filter-containter-search">
             <span>Search For Recipes</span>
-            <div>
-              <input type="text" id="search-query" placeholder='Example: "pasta" or "rice"...'>
-            </div>
+            <input type="text" id="search-query" placeholder='Example: "pasta" or "rice"...' v-model="query">
           </div>
           <div class="filter-container-max-time">
             <button @click="decrementMaxTime">-</button>
@@ -70,6 +68,7 @@ export default {
     return {
       show: false,
       max_time: 60,
+      query: null,
       dietary: [],
       allergies: [],
       cuisines: [],
@@ -79,14 +78,14 @@ export default {
         { id: 3, value: 'gluten free', title: 'Gluten Free'},
       ],
       Intolerce: [
-        { id: 'grain', value: 'Grain', title: 'Grain' },
-        { id: 'dairy', value: 'Dairy', title: 'Dairy' },
-        { id: 'gluten', value: 'Gluten', title: 'Gluten' },
-        { id: 'soybeans', value: 'Soybeans', title: 'Soybeans' },
-        { id: 'shellfish', value: 'Shellfish', title: 'Shellfish' },
-        { id: 'fish', value: 'Fish', title: 'fish' },
-        { id: 'eggs', value: 'Eggs', title: 'Eggs' },
-        { id: 'peanut', value: 'Peanut', title: 'Peanut' }
+        { id: 'grain', value: 'grain', title: 'Grain' },
+        { id: 'dairy', value: 'dairy', title: 'Dairy' },
+        { id: 'gluten', value: 'gluten', title: 'Gluten' },
+        { id: 'soybeans', value: 'soybeans', title: 'Soybeans' },
+        { id: 'shellfish', value: 'shellfish', title: 'Shellfish' },
+        { id: 'fish', value: 'fish', title: 'fish' },
+        { id: 'eggs', value: 'eggs', title: 'Eggs' },
+        { id: 'peanut', value: 'peanut', title: 'Peanut' }
       ],
       cuisine_list: [
         { id: 'cuisine-italian', value: 'italian', title: 'Italian'},
@@ -104,16 +103,31 @@ export default {
     toggleFilter() {
       if (this.show) {
         this.show = false
-        // this.$parent.loadInRecipes()
+        this.$parent.setVariables(this.query, this.max_time, this.allergies, this.dietary, this.cuisines)
+        this.$parent.loadInRecipes()
       } else {
         this.show = true
       }
     },
     incrementMaxTime() {
-      this.max_time += 60
+      const currentTime = this.max_time
+      if (currentTime < 120) {
+        this.max_time += 15
+      } else {
+        this.max_time += 60
+      }
     },
     decrementMaxTime() {
-      this.max_time -= 60
+      const currentTime = this.max_time
+      if (currentTime <= 15) {
+        this.max_time = 15
+        return
+      }
+      if (currentTime > 120) {
+        this.max_time -= 60
+      } else {
+        this.max_time -= 15
+      }
     }
   },
   components: {
@@ -128,11 +142,23 @@ export default {
   --top-button-border-radius: 20px;
   --top-buttons-width: 20vw;
   --top-bar-height: 5vh;
+  --search-radius: 5px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+span {
+  font-size: 1.75rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  font-size: 2.5rem;
 }
 
 .filter-container-main {
-  background-color: rgb(133, 170, 202);
+  background-color: rgb(99, 99, 99);
   position: relative;
+  z-index: 1000;
   width: 100vw;
   height: auto;
   margin: 0;
@@ -182,7 +208,7 @@ export default {
 }
 
 .top-bar h1{
-  color: black;
+  color: wheat;
 }
 
 .filter-container {
@@ -196,7 +222,7 @@ export default {
 
 .filter-container-left {
   width: 49.5%;
-  height: 20vh;
+  height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -206,7 +232,7 @@ export default {
 
 .filter-container-right {
   width: 49.5%;
-  height: 20vh;
+  height: 40vh;
   margin-left: 0.5%;
   display: flex;
   flex-direction: column;
@@ -215,8 +241,7 @@ export default {
 }
 
 .filter-container-box {
-  width: 90%;
-  height: 5vh;
+  width: 95%;
   margin: 1vh 0vh;
   padding: 10px;
   background-color: white;
@@ -231,6 +256,70 @@ export default {
 
 
 /* Styles for different parts */
+.filter-containter-search {
+  width: 50%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: left;
+}
+
+
+.filter-containter-search span {
+  text-decoration: underline;
+}
+
+.filter-containter-search input {
+  width: 100%;
+  height: 50%;
+  font-size: 1.2rem;
+  border: none;
+  border-bottom: var(--search-radius) black solid;
+  border-radius: var(--search-radius);
+  padding: 0;
+  margin: 0;
+}
+
+.filter-container-max-time {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-container-max-time span {
+  width: 30%;
+  height: 35%;
+  font-size: 1.2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: var(--search-radius) black solid;
+  transform: scaleX(1.1);
+}
+
+.filter-container-max-time span::after {
+  content: " min";
+  display: block;
+}
+
+.filter-container-max-time button {
+  width: 35%;
+  height: 40%;
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-bottom: var(--search-radius) black solid;
+  border-left: var(--search-radius) black solid;
+  border-radius: var(--search-radius);
+}
 
 .filter-allergies-container {
   display: flex;

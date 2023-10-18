@@ -22,6 +22,10 @@
                     <InstructionStepView v-for="(step, key, index) in analyzedInstructions[0].steps"
                     :key="index"
                     v-bind="step"/>
+                    <div class="qr-code-container">
+                        <h2>Link to recipe</h2>
+                        <img :src="qr" alt="Qr-Code">
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,10 +39,11 @@ export default {
     components: {
     InstructionStepView,
 },
-    props: ['id','title','image','imageType','original','analyzedInstructions','extendedIngredients'],
+    props: ['id','title','image','imageType','original','analyzedInstructions','extendedIngredients','spoonacularSourceUrl'],
     data() {
         return {
             selected: false,
+            qr: null
         }
     },
     setup() {
@@ -109,6 +114,9 @@ export default {
                 })
             }
         }
+    },
+    mounted() {
+        this.qr = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+this.spoonacularSourceUrl
     }
 }
 </script>
@@ -264,5 +272,25 @@ export default {
         margin: 25px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         color: whitesmoke;
+    }
+
+    .qr-code-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+
+    .qr-code-container img {
+        width: 40vh;
+        height: 40vh;
+        padding-bottom: 5vh;
+    }
+
+    .qr-code-container h2 {
+        font-size: 3rem;
+        padding: 0;
+        margin: 0;
     }
 </style>

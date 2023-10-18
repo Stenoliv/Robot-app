@@ -26,8 +26,8 @@ export default {
         return {
             selected: false,
             bg_color: null,
-            bgc_checked: 'rgb('+50+','+120+','+50+')',
-            bgc_unchecked: 'rgb('+120+','+50+','+50+')'
+            bgc_checked: 'rgb('+40+','+140+','+30+')',
+            bgc_unchecked: 'rgb('+100+','+100+','+100+')'
         }
     },
     methods: {
@@ -57,12 +57,14 @@ export default {
 <style scoped>
 * {
   color: #ccc;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .cuisine-button-container {
     background-color: v-bind('bg_color');
     display: flex;
     position: relative;
     flex-direction: row;
+    flex-wrap: wrap;
     flex-grow: 1;
     justify-content: center;
     align-items: center;
@@ -70,17 +72,18 @@ export default {
     padding: 0;
     overflow: hidden;
     min-width: calc(25% - 2%);
-    height: 55%;
+    height: 50%;
     border-radius: 0.8vw;
 }
 
 .cuisine-button-container label {
     width: 75%;
+    margin-left: 25%;
     height: 100%;
     display: flex;
     justify-content: left;
-    padding-left: 8;
     align-items: center;
+    font-size: 1rem;
 }
 
 .cuisine-button-container input {
