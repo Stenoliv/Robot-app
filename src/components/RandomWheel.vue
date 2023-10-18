@@ -1,27 +1,37 @@
 <template>
-  <div id="mainbox" class="mainbox">
-    <div v-if="wheelVisible == true" id="box" class="box">
-      <div class="box1">
-        <span class="span1"><b>Iron Man</b></span>
-        <span class="span2"><b>7500</b></span>
-        <span class="span3"><b>Bat Man</b></span>
-        <span class="span4"><b>Joker</b></span>
+  <div id="mainContainer">
+    <div id="mainbox" class="mainbox">
+      <div id="box" class="box">
+        <div class="box1">
+          <span class="span1"><b>1</b></span>
+          <span class="span2"><b>2</b></span>
+          <span class="span3"><b>3</b></span>
+          <span class="span4"><b>4</b></span>
+        </div>
+        <div class="box2">
+          <span class="span1"><b>5</b></span>
+          <span class="span2"><b>6</b></span>
+          <span class="span3"><b>7</b></span>
+          <span class="span4"><b>8</b></span>
+        </div>
+        <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
       </div>
-      <div class="box2">
-        <span class="span1"><b>Shoplifters</b></span>
-        <span class="span2"><b>Inception</b></span>
-        <span class="span3"><b>Deadpool</b></span>
-        <span class="span4"><b>Terminator</b></span>
+
+      <p v-if="this.result">Result: {{ result }}</p>
+
+    </div>
+    <div v-show="this.recipeOrRestaurant == 1 && this.visible == true" id="randContainer">
+
+      <div id="map2"></div>
+      <div id="result">
+        {{ finalRestaurant.name }} - {{ finalRestaurant.vicinity }}
       </div>
-      <button class="spin" @click="spinTheWheel" :disabled="spinning">SPIN</button>
-    </div>
 
-    <div id="result">
-      {{ finalRestaurant.name }} - {{ finalRestaurant.vicinity }}
     </div>
-    <div id="map"></div>
-
-    <p v-if="this.result">Result: {{ result }}</p>
+    <div v-show="this.recipeOrRestaurant == 0 && this.visible == true" id="recipeCont">
+      {{ this.randomRecipe }}
+      <!--{{ this.randomRecipe.recipes[0].title }}-->
+    </div>
   </div>
 </template>
   
@@ -32,52 +42,52 @@ export default {
   data() {
     return {
       spinning: false,
+      recipeOrRestaurant: null,
       result: null,
-      wheelVisible: true,
       resultRestaurant: [],
       randomNumber: null,
-      finalRestaurant: {}
+      finalRestaurant: {},
+      randomRecipe: [],
+      visible: false,
     };
   },
   methods: {
     spinTheWheel() {
-      let rand = Math.floor(Math.random() * 2);
-      console.log("Random number for recipe or restaurant: " + rand)
-      let randResult;
-      /*if (rand == 0) {
-        randResult = "RANDOM RECIPE";
-        this.getRandomRecipe(randResult);
-      } else if (rand == 1) {
-        randResult = "RANDOM RESTAURANT";
-        this.getRandomRestaurants(randResult);
-      }*/
-
+      this.visible = false;
+      this.recipeOrRestaurant = null;
+      this.recipeOrRestaurant = Math.floor(Math.random() * 2);
+      console.log("recipeOrRestaurant: " + this.recipeOrRestaurant)
       if (!this.spinning) {
         this.spinning = true;
         var x = 1024;
         var y = 9999;
         var deg = Math.round(Math.random() * (x - y)) + y;
-        console.log(deg)
         document.getElementById('box').style.transform = "rotate(" + deg + "deg";
         var element = document.getElementById('mainbox');
         element.classList.remove('animate');
         setTimeout(() => {
           element.classList.add('animate');
-          const sections = ['Iron Man', '7500', 'Bat Man', 'Joker', 'Shoplifters', 'Inception', 'Deadpool', 'Terminator'];
-          const sectionIndex = deg / (360);
-          console.log(sectionIndex)
-          this.result = sections[sectionIndex];
           this.spinning = false;
-          this.wheelVisible = false;
-          this.getRandomFood(rand);
+          this.visible = true;
+
+          this.getRandomFood(this.recipeOrRestaurant);
         }, 5000);
+
       }
+    },
+    async getRandomRecipe() {
+      const apiKey = "bf4c1e6e5ace425e93abc0e4433236af";
+      const data = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=bf4c1e6e5ace425e93abc0e4433236af&number=1`)
+      const resultData = await data.json();
+      this.randomRecipe = resultData;
+      console.log(resultData);
     },
     getRandomFood(number) {
       // Random getter for recipe
       if (number == 0) {
         console.log("Recipe")
-
+        //this.getRandomRecipe();
+        this.randomRecipe = "Kebab ranchot"
 
         // Random getter for restaurants
       } else if (number == 1) {
@@ -91,7 +101,7 @@ export default {
           zoom: 14,
         };
 
-        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        const map = new google.maps.Map(document.getElementById('map2'), mapOptions);
 
         const request = {
           location: new google.maps.LatLng(60.20157545248931, 24.965492207916),
@@ -104,14 +114,24 @@ export default {
         service.nearbySearch(request, (result, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             this.resultRestaurant = result;
-            console.log(this.resultRestaurant[randomNumber].name);
+            console.log(result[randomNumber].geometry)
+            console.log("resultRestaurant: " + this.resultRestaurant[randomNumber].name);
             //this.finalRestaurant = "Name: " + this.resultRestaurant[randomNumber].name + " Adress: " + this.resultRestaurant[randomNumber].vicinity;
             this.finalRestaurant = this.resultRestaurant[randomNumber];
-            console.log(this.finalRestaurant)
-            //document.querySelector("#result").innerHTML = this.resultRestaurant[randomNumber].name;
-            //for (let i = 0; i < this.resultRestaurant.length; i++) {
-            //  console.log(this.resultRestaurant[i]);
-            //}
+            console.log("finalResult: " + this.finalRestaurant)
+
+            const marker = new google.maps.Marker({
+              position: this.finalRestaurant.geometry.location,
+              map: map,
+            });
+
+            const infowindow = new google.maps.InfoWindow({
+              content: `<strong id="info-window">${this.finalRestaurant.name}<br>${this.finalRestaurant.vicinity}</strong>`
+            });
+            marker.addListener('click', () => {
+              infowindow.open(map, marker);
+            });
+
           }
         })
       }
@@ -121,6 +141,54 @@ export default {
 </script>
   
 <style scoped>
+#mainContainer {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  height: 80vh;
+  margin: auto;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#recipeCont {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 50%;
+  margin: auto;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: center;
+}
+
+#randContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 50%;
+  margin: auto;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: space-around;
+}
+
+#result {
+  text-align: center;
+  margin: auto;
+  font-size: 30px;
+}
+
+#info-window {
+  color: black;
+}
+
+#map2 {
+  height: 30vh;
+  width: 25vw;
+  border-radius: 10px;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
