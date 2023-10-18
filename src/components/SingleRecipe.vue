@@ -193,7 +193,7 @@ export default {
     }
 
     .simpleView img {
-        width: fit-content;
+        width: 50%;
         height: fit-content;
         margin-right: 30px ;
         border-radius: 10%;
