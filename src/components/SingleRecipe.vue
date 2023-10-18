@@ -17,7 +17,6 @@
                 </div>
                 <div class="recipeInstructions">
                     <span v-for="(original, key, index) in extendedIngredients[0].original" key:index>{{ original }}</span>
-
                     <InstructionStepView v-for="(step, key, index) in analyzedInstructions[0].steps"
                     :key="index"
                     v-bind="step"/>
@@ -30,8 +29,6 @@
 <script>
 import InstructionStepView from '@/components/InstructionStepView.vue'
 import { getCurrentInstance } from 'vue'
-import axios from 'axios'
-
 export default {
     components: {
     InstructionStepView,
@@ -40,8 +37,6 @@ export default {
     data() {
         return {
             selected: false,
-            information: null,
-            loading: true
         }
     },
     setup() {
@@ -82,9 +77,6 @@ export default {
             } else {
                 this.selected = true
                 container.refs.empty_space.show()
-                
-                this.loading = true
-                this.requestInformation()
 
                 // Parent div controls
                 container.refs.container.classList.add('disableScroll')
@@ -107,23 +99,6 @@ export default {
                         }
                     })
                     container.refs.empty_space.hide()
-                })
-            }
-        },
-        requestInformation() {
-            if (this.information != null) {
-                this.loading = false
-            } else {
-                axios.get("https://api.spoonacular.com/recipes/"+ this.id +"/information?includeNutrition=false&apiKey=" + import.meta.env.VITE_API_KEY)
-                .then((response) => {
-                    console.log(response)
-                    this.information = response.data
-                    this.loading = false
-                    console.log("steps", this.information.analyzedInstructions[0].steps)
-                    console.log("ingredients",this.information.extendedIngredients[0].original)
-                })
-                .catch((error) => {
-                    console.log(error)
                 })
             }
         }
