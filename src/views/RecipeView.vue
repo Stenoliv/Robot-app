@@ -81,7 +81,7 @@ export default {
   },
   mounted() {
     // load in recipes at page load
-    // this.loadInRecipes()
+    this.loadInRecipes()
   }
 }
 </script>
