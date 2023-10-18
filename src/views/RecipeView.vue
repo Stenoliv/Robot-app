@@ -33,9 +33,8 @@ export default {
         + "&query=" + this.query 
         + "&diet=" + this.diet
         + "&intolerances=" + this.intolerances
-        + "&cuisines=" + this.cuisines
+        + "&cuisine=" + this.cuisines
         + "&maxReadyTime=" + this.max_time
-        + "&"
         + "&addRecipeInformation=" + true
         + "&instructionsRequired= " + true
         + "&fillIngredients=" + true
@@ -51,6 +50,7 @@ export default {
             console.log('API key required')
           }
         })
+        console.log(this.query, this.diet, this.intolerances, this.max_time, this.cuisines)
     },
     setVariables(query, max_time, diet, allergies, cuisine) {
       if (query != "" && query != null) {
