@@ -57,7 +57,7 @@ export default {
       this.visible = false;
       this.recipeOrRestaurant = null;
       this.recipeOrRestaurant = Math.floor(Math.random() * 2);
-      console.log("recipeOrRestaurant: " + this.recipeOrRestaurant)
+      //console.log("recipeOrRestaurant: " + this.recipeOrRestaurant)
       if (!this.spinning) {
         this.spinning = true;
         var x = 1024;
@@ -88,16 +88,16 @@ export default {
     getRandomFood(number) {
       // Random getter for recipe
       if (number == 0) {
-        console.log("Recipe")
+
+        //console.log("Recipe")
         this.getRandomRecipe();
-        this.randomRecipe = "Kebab ranchot"
 
         // Random getter for restaurants
       } else if (number == 1) {
-        console.log("Restaurant")
+        //console.log("Restaurant")
 
         let randomNumber = Math.floor(Math.random() * 20);
-        console.log("Random number: " + randomNumber);
+        //console.log("Random number: " + randomNumber);
 
         const mapOptions = {
           center: { lat: 60.20157545248931, lng: 24.965492207916 },
@@ -117,11 +117,10 @@ export default {
         service.nearbySearch(request, (result, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
             this.resultRestaurant = result;
-            console.log(result[randomNumber].geometry)
-            console.log("resultRestaurant: " + this.resultRestaurant[randomNumber].name);
-            //this.finalRestaurant = "Name: " + this.resultRestaurant[randomNumber].name + " Adress: " + this.resultRestaurant[randomNumber].vicinity;
+            //console.log(result[randomNumber].geometry)
+            //console.log("resultRestaurant: " + this.resultRestaurant[randomNumber].name);
             this.finalRestaurant = this.resultRestaurant[randomNumber];
-            console.log("finalResult: " + this.finalRestaurant)
+            //console.log("finalResult: " + this.finalRestaurant)
 
             const marker = new google.maps.Marker({
               position: this.finalRestaurant.geometry.location,
@@ -150,7 +149,7 @@ export default {
   width: 80vw;
   height: 80vh;
   margin: auto;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 }
 
@@ -216,6 +215,9 @@ body {
   position: relative;
   width: 500px;
   height: 500px;
+  max-width: 500px;
+  min-width: 500px;
+  transform: scale(0.8);
 }
 
 .mainbox:after {
