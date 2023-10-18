@@ -29,10 +29,7 @@ export default {
         <img id="return" src="src\assets\images\return-svgrepo-com.svg" alt="Return Image">
     </RouterLink>
     <h1>{{ title }}</h1>
-    <Restaurants
-    />
-    
-
+    <Restaurants />
 </template>
 
 <style scoped>
