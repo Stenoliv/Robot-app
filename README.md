@@ -1,40 +1,7 @@
-# ramverk
+# ** INTE FÖR PROJEKTES BEDÖMNING **
 
+## Rasmus Räihäs ** EXTRA ** funktioner
 
-# Default html page for ramverk group project
-
-# hungerbot
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Gjorde några extra fixar utanför själva projektet för att kunna användas som exempel.
+Implementerade en footer och tog api nycklarna ut ur koden som hård kodade. 
+Flyttade dem till en settings menu som man kommer åt i footern
