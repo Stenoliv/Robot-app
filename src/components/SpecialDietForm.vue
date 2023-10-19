@@ -339,6 +339,7 @@ h1 {
   align-content: center;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .filter-cuisine-container {
@@ -350,5 +351,82 @@ h1 {
   height: 100%;
   width: 100%;
 }
+
+@media screen and (max-height: 800px) {
+  h1 {
+    font-size: 2dvw;
+  }
+  span {
+    font-size: 1.5dvw;
+  }
+
+  /* Search style */
+  .filter-containter-search span, .filter-containter-search input {
+    font-size: 1.5dvw;
+  }
+  /* Time style */
+  .filter-container-max-time span, .filter-container-max-time button {
+    font-size: 1dvw;
+  }
+
+  .filter-preferences-container {
+    overflow: scroll;
+    height: 80%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  h1 {
+    font-size: 2dvw;
+  }
+  span {
+    font-size: 1.5dvw;
+  }
+
+  /* Search style */
+  .filter-containter-search span, .filter-containter-search input {
+    font-size: 1.5dvw;
+  }
+  /* Time style */
+  .filter-container-max-time span, .filter-container-max-time button {
+    font-size: 1dvw;
+  }
+
+  .filter-preferences-container {
+    overflow: scroll;
+    height: 80%;
+  }
+
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 2dvh;
+    }
+    span {
+      font-size: 1.5dvh;
+    }
+    .filter-containter-search span, .filter-containter-search input {
+      font-size: 1.5dvh;
+    }
+    /* Time style */
+    .filter-container-max-time span, .filter-container-max-time button {
+      font-size: 1.5dvh;
+      height: 3dvh;
+    }
+    .filter-container {
+      flex-direction: column;
+    }
+
+    .filter-container-left {
+      width: 100%;
+      height: 20%;
+    }
+
+    .filter-container-right {
+      width: 100%;
+      height: 20%;
+    }
+  }
+}
+
 
 </style>

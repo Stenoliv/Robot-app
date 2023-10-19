@@ -77,7 +77,7 @@ export default {
       }
     },
     getRandomRecipe() {
-      axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${import.meta.env.VITE_API_KEY}&number=1`)
+      axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${this.$store.getters.getSpoonacular}&number=1`)
       .then((response) => {
         if (response.status == 200) {
           this.randomRecipe = response.data.recipes[0];
@@ -341,6 +341,56 @@ span b {
 @keyframes animateArrow {
   50% {
     right: -40px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .mainbox {
+    transform: scale(.5);
+    margin-left: -20%;
+  }
+
+  #randContainer {
+    width: 60%;
+    height: 50vh;
+  }
+  #map2 {
+    width: 50vw;
+    height: 45vh;
+  }
+  #result {
+    font-size: 20px;
+  }
+
+  @media screen and (max-width: 600px) {
+    #mainContainer {
+      flex-direction: column;
+      height: 90vh;
+    }
+    .mainbox {
+      width: 500px;
+      height: 500px;
+      margin: 0;
+      margin-top: -30%;
+      margin-bottom: -30%;
+      padding: 0;
+    }
+    .box {
+      width: 500px;
+      height: 500px;
+    }
+
+    #randContainer {
+      width: 100%;
+      flex-direction: column;
+    }
+    #map2 {
+      width: 100%;
+      height: 70%;
+    }
+    #result {
+      font-size: 15px;
+    }
   }
 }
 </style>

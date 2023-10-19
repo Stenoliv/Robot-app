@@ -32,7 +32,9 @@ export default {
         <h1>{{ title }}</h1>
         <div class="get-restaurants-button" type="button" @click="this.$refs.restaurants.getLocation">Get Restaurants</div>
     </div>
-    <Restaurants ref="restaurants" />
+    <div class="restarurant-container">
+        <Restaurants ref="restaurants" />
+    </div>
 </template>
 
 <style scoped>
@@ -94,5 +96,38 @@ export default {
 #return {
     width: 10vw;
     height: 5vh;
+}
+.restarurant-container {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .back-button {
+        font-size: 1.5dvw;
+    }
+    .restaurant-container-main {
+        font-size: 1.2dvw;
+    }
+    .get-restaurants-button {
+        font-size: 1.5dvw;
+    }
+
+    @media screen and (max-width: 600px) {
+        .back-button {
+            font-size: 1.5dvh;
+        }
+        .restaurant-container-main {
+            font-size: 1.6dvw;
+        }
+        .get-restaurants-button {
+            font-size: 1.4dvh;
+            text-align: center;
+            line-height: 1;
+        }
+    }
 }
 </style>

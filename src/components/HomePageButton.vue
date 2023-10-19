@@ -21,9 +21,8 @@ export default {
 <style scoped>
 .button-box {
   position: relative;
-  width: 99%;
-  height: 20%;
-  z-index: 10;
+  width: 100%;
+  height: 30%;
   background-color: var(--interact-color);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease-in-out;
@@ -36,15 +35,15 @@ export default {
   display: flex;
   align-items: center;
   right: 0;
-  width: 20%;
+  width: 30%;
   height: 100%;
-  font-size: 2vw;
+  font-size: 3vh;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .home-img {
   position: absolute;
   inset: 0 0;
-  width: 80%;
+  width: 70%;
   height: 100%;
   clip-path: polygon(0 100%, 90% 100%, 100% 0, 0 0);
   object-fit: cover;
@@ -69,5 +68,34 @@ export default {
 
 .button-box:hover::after {
   opacity: 1;
+}
+
+
+
+@media screen and (max-width: 1400px) {
+  .question {
+    font-size: 3vw;
+  }
+
+  @media screen and (max-height: 800px) {
+      .question {
+      font-size: 3vh;
+      width: 40%;
+    }
+
+    .home-img {
+      width: 60%;
+    }
+
+    @media screen and (max-width: 600px) {
+      .question {
+        font-size: 4vw;
+        width: 50%;
+      }
+      .home-img {
+        width: 50%;
+      }
+    }
+  }  
 }
 </style>

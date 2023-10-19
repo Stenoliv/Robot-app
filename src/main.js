@@ -4,9 +4,11 @@ import router from '@/router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import '@/assets/style.css'
+import store from '@/store'
 
 createApp(App)
-    .use(VueAxios, axios)
-    .use(router)
-    .mount('#app')
+.use(VueAxios, axios)
+.use(store)
+.use(router)
+.mount('#app')
 

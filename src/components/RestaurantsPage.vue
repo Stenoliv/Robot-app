@@ -107,9 +107,8 @@ button {
   flex-wrap: wrap;
   flex-direction: row-reverse;
   justify-content: center;
+  align-items: center;
   height: 80vh;
-  margin: auto;
-  margin-top: 7.5vh;
   border-radius: 10px;
 }
 
@@ -120,7 +119,7 @@ button {
   margin: 2vh;
   height: 75vh;
   overflow: auto;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 #resContainer::-webkit-scrollbar-track {
@@ -138,7 +137,6 @@ button {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #a12525;
 }
-
 
 #map {
   height: 75vh;
@@ -160,6 +158,28 @@ button {
 #rest-div:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  #resContainer {
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 600px) {
+    #mainContainer {
+      height: 85vh;
+    }
+
+    #map {
+      margin: 10px;
+      height: 40%;
+      width: 100%;
+    }
+    #resContainer {
+      height: 50%;
+      width: 100%;
+    }
+  }
 }
 </style>
   

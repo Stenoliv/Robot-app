@@ -8,22 +8,22 @@ const routes = [
       {
         path: '/',
         name: 'Home',
-        component: () => import('@/views/HomeView.vue')
+        component: () => import('@/views/HomeView.vue'),
       },
       {
         path: '/restaurant',
         name: 'Restaurant',
-        component: () => import('@/views/RestaurantsView.vue')
+        component: () => import('@/views/RestaurantsView.vue'),
       },
       {
         path: '/recipe',
         name: 'Recipe',
-        component: () => import('@/views/RecipeView.vue')
+        component: () => import('@/views/RecipeView.vue'),
       },
       {
         path: '/random',
         name: 'Random',
-        component: () => import('@/views/RandomView.vue')
+        component: () => import('@/views/RandomView.vue'),
       }
     ]
   }

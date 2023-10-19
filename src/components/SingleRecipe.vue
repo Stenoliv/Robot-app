@@ -1,7 +1,7 @@
 <template>
     <div :ref="'scroll_'+id" class="recipeContainer">
         <div :ref="id" class="Recipe active" >
-            <div v-if="!selected" class="simpleView" @click="toggleRecipe()">
+            <div v-if="!selected" class="simpleView" @click="toggleRecipe">
                 <img :src="image" alt="Image of food" />
                 <h2>{{ title }}</h2>
                 <h3 class="prepTime">{{ readyInMinutes }}:Minutes</h3>
@@ -9,17 +9,15 @@
             <div v-else class="detailedView">
                 <div class="simpleView">
                     <img :src="image" alt="Image of food" />
+                    <div class="closeRecipeButton" @click="toggleRecipe">X</div>
                     <div class="closeMenu">
-                        <div class="closeRecipeButton" @click="toggleRecipe()">
-                            X
-                        </div>
                         <h2>{{ title }}</h2>
                         <h3 class="prepTime">{{ readyInMinutes }}:Minutes</h3>
                     </div>
                 </div>
                 <div class="recipeInstructions">
                     <h2 class="title">Ingredients</h2>
-                    <div v-for="(original, key, index) in extendedIngredients" :key="index" id="original">{{ original.original }}</div><br>
+                    <div v-for="(original, key, index) in extendedIngredients" :key="index" class="original">{{ original.original }}</div><br>
                     <h2 class="title">Instructions</h2>
                     <InstructionStepView v-for="(step, key, index) in analyzedInstructions[0].steps"
                     :key="index"
@@ -142,7 +140,7 @@ export default {
         }
 
         to {
-            height: calc(95vh - var(--recipeGap) * 2);
+            height: calc(90vh - var(--recipeGap) * 2);
         }
     }
 
@@ -174,18 +172,21 @@ export default {
         border-radius: 30px;
         transition: var(--transition) ease-in-out;
     }
+
     .Recipe:hover:not(.big) {
         scale: 1.02;
     }
 
     h2 {
-        font-size: 35px;
+        font-size: 2rem;
         color: whitesmoke;
     }
-    .prepTime{
-        font-size: 35px;
+    .prepTime {
+        padding: 0;
+        margin: 0;
+        font-size: 15px;
         color: whitesmoke;
-        margin-right: 140px;
+        padding-right: 1rem;
     }
 
     /*Styling for simple view*/
@@ -193,26 +194,72 @@ export default {
         display: flex;
         flex-direction: row;
         width: 100%;
+        max-height: 30dvh;
         justify-content: start;
         align-items: center;
     }
 
     .simpleView img {
-        width: 50%;
+        width: 40%;
+        max-height: 30dvh;
         height: fit-content;
-        margin-right: 30px ;
-        border-radius: 10%;
+        border-radius: 30px;
     }
 
     .simpleView h2 {
-        width: 90%;
+        width: 80%;
         text-align: start;
-        margin-right: 40px;
+        padding-right: 2rem;
+    }
+
+    @media screen and (max-width: 1000px) {
+        * {
+            --recipeGap: 10px;
+        }
+        .simpleView {
+            flex-direction: column;
+        }
+        .simpleView img {
+            max-height: 50dvh;
+            border-radius: 0;
+            margin: 0;
+        }
+        .simpleView h2 {
+            font-size: 15px;
+            text-align: center;
+        }
+        .closeMenu {
+            flex-direction: column;
+        }
+        .prepTime {
+            padding-bottom: 1dvh;
+        }
+
+        @media screen and (max-height: 600px) {
+            .simpleView {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+            .simpleView h2 {
+                text-align: start;
+                padding-left: 20px;
+            }
+            .simpleView img {
+                border-radius: 30px;
+                height: 100%;
+            }
+            .prepTime {
+                margin: 0;
+                padding: 0;
+            }
+        }
     }
 
     /*Styling of detailedView for recipe AKA "Opened/Selected" reecipe*/
 
     .detailedView {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: start;
@@ -232,42 +279,51 @@ export default {
     }
 
     .closeRecipeButton {
+        z-index: 10;
         position: absolute;
         top: 0;
         right: 0;
-        margin: 10px;
         color: white;
         background-color: rgb(49, 49, 49);
-        border: 0px solid white;
-        border-radius: 10%;
-        width: 80px;
-        height: 60px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 10px;
+        width: 10%;
+        height: 5%;
+        padding: 0;
+        margin: 0;
         display: flex;
-        flex-direction: row;
         justify-content: center;
         align-items: center;
-    }
-
-    .closeRecipeButton:hover {
         cursor: pointer;
-    }
-
-    .loading {
-        height: fit-content;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-self: center;
-        align-items: center;
     }
 
     .recipeInstructions {
         height: 100%;
-        width: 100%;
+        width: 96%;
+        border-bottom-right-radius: 30px;
         overflow: auto;
-        width: 100%;
+        margin: 2%;
+        margin-top: 0;
+        margin-bottom: 0;
     }
-    #original{
+
+    .recipeInstructions::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+        background-color: #F5F5F5;
+    }
+
+    .recipeInstructions::-webkit-scrollbar {
+        width: 15px;
+    }
+
+    .recipeInstructions::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+        background-color: #4d2828;
+    }
+    
+    .original{
         font-size: 30px;
         margin: 25px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -297,5 +353,110 @@ export default {
         font-size: 3rem;
         padding: 0;
         margin: 0;
+    }
+
+    @media screen and (max-width: 1000px) {
+        .recipeInstructions .title {
+            font-size: 5dvw;
+            padding: 0;
+            margin: 12px;
+        }
+        .original {
+            font-size: 4dvw;
+            line-height: 1.5;
+            margin: 1dvh;
+            margin-left: 8dvw;
+            padding: 0;
+        }
+        .closeRecipeButton {
+            margin: 0;
+            border-radius: 0;
+            border-top-right-radius: 30px;
+            border-bottom-left-radius: 10px;
+            height: 5%;
+        }
+        .qr-code-container {
+            height: 30dvh;
+        }
+        .qr-code-container h2 {
+            font-size: 3.5dvh;
+        }
+        .qr-code-container img {
+            width: 40dvw;
+            height: 40dvw;
+        }
+
+        @media screen and (max-height: 600px) {
+            .detailedView {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .Recipe .detailedView .simpleView {
+                width: 30%;
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+            }
+            .Recipe .detailedView .simpleView h2 {
+                text-align: center;
+            }
+            .Recipe .detailedView .simpleView img {
+                width: 75%;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            .Recipe .detailedView .closeMenu {
+                flex-direction: column;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+            .Recipe .detailedView .closeMenu h2 {
+                font-size: 1rem;
+                margin: 0;
+                padding: 0;
+            }
+            .Recipe .detailedView .prepTime {
+                margin: 0;
+                margin-top: 1rem;
+                padding: 0;
+            }
+
+            .closeRecipeButton {
+                left: 0;
+                right: auto;
+                border-radius: 0;
+                border-top-left-radius: 30px;
+                border-bottom-right-radius: 10px;
+                height: 10%;
+            }
+
+            .recipeInstructions {
+                width: 70%;
+            }
+            .recipeInstructions .title {
+                font-size: 1rem;
+                margin: 0;
+                padding: 0;
+            }
+            .original {
+                font-size: 0.75rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            .qr-code-container {
+                height: 35dvh;
+            }
+            .qr-code-container h2 {
+                font-size: 3.5dvh;
+            }
+            .qr-code-container img {
+                width: 30dvh;
+                height: 30dvh;
+            }
+        }
     }
 </style>

@@ -78,6 +78,8 @@ export default {
 
 .cuisine-button-container label {
     width: 75%;
+    padding: 0;
+    margin: 0;
     margin-left: 25%;
     height: 100%;
     display: flex;
@@ -132,6 +134,40 @@ export default {
   height: 50%;
   border-radius: 50%;
   background: white;
+}
+
+@media screen and (max-height: 800px) {
+    .cuisine-button-container {
+        height: 30%;
+        width: calc(33% - 2%);
+    }
+    .cuisine-button-container label {
+        font-size: 1.6dvh;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    
+    .cuisine-button-container {
+        height: 30%;
+        width: calc(33% - 2%);
+    }
+    .cuisine-button-container label {
+        font-size: 1.5dvh;
+    }
+
+    @media screen and (max-width: 600px) {
+        .cuisine-button-container {
+            height: 30%;
+            width: calc(50% - 2%);
+        }
+        .cuisine-button-container label {
+            font-size: 1.5dvh;
+            justify-content: center;
+            margin-left: 0;
+        }
+    }
+
 }
 
 </style>

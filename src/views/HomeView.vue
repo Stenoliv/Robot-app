@@ -18,12 +18,16 @@ export default {
 </script>
 
 <template>
-  <div class="main" id="app">
-    
-    <div class="header" style="font-family: Orbitron; letter-spacing:7px;">HungerBot<img id="mainLogo" src="@\assets\images\hungerbot.png" alt="HungerBot logo"></div>
-    
-    <div class="buttons">
+  <div class="main">
+    <div class="header-container" style="font-family: Orbitron; letter-spacing:7px;">
+      <div class="header-text">
+        HungerBot
+        <img id="mainLogo" src="@\assets\images\hungerbot.png" alt="HungerBot logo">
+      </div>
+      <div class="horizontal-line"></div>
       <div class="title">Don't know what to eat? I can help!</div>
+    </div>
+    <div class="buttons">
       <HomePageButton v-for="button in buttons" :key="button" v-bind="button" />
     </div>
   </div>
@@ -31,53 +35,80 @@ export default {
 
 <style scoped>
 /* Main page style \/ */
+* {
+  --gap: 5vh;
+}
+
+.main {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+/* Page Header style */
+
+.header-container {
+  margin: 0;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  padding: 0;
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  font-size: 8vh;
+  margin: 0;
+  padding: 0;
+  width: 70%;
+  padding-left: 15%;
+}
 
 #mainLogo {
-  width: 100px;
-  height: 100px;
+  padding: 0;
+  margin: 0;
+  width: 6vh;
+  height: 6vh;
   background-color: white;
   border-radius: 50%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
 }
 
-.main {
-  margin: 0;
-  padding: 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75%;
-  height: 100%;
-  
+.horizontal-line {
+  width: 100%;
+  border-bottom: 4px solid white;
 }
-
-/* Page Header style */
-
-.header {
-  margin: 0;
-  padding: 0;
-  border-bottom: 2px solid white;
-  margin-left: -10%;
-  margin-right: -10%;
-  padding-left: 10%;
-  font-size: 5vw;
-  display: flex;
-  flex-direction: row;
-  justify-content:flex-start;
-  align-items:center;
-}
-
-/* restaurant, recipe and random buttons style \/ */
 
 .title {
   text-align-last: justify;
-  font-size: 4vw;
-  padding-top: 0.5em;
-  width: 100%;
+  overflow: hidden;
+  font-size: 3vw;
+  letter-spacing: 0.3vw;
   max-lines: 1;
+  padding: 0;
+  margin: 0;
+  width: 70%;
+  padding-left: 15%;
+  padding-right: 15%;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+
+/* restaurant, recipe and random buttons style \/ */
 
 .buttons {
   display: flex;
@@ -85,6 +116,95 @@ export default {
   justify-content: center;
   align-items: center;
   gap: var(--gap);
-  height: 80%;
+  height: 60vh;
+  width: 70%;
+}
+
+/* Responsive */
+@media screen and (max-width: 1000px){
+
+  .header-container {
+    height: 15vh;
+  }
+  .header-text {
+    font-size: 3dvh;
+  }
+  #mainLogo {
+    width: 4dvh;
+    height: 4dvh;
+  }
+  .title {
+    font-size: 2.5dvh;
+    text-align-last: auto;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  * {
+    --gap: 1em;
+  }
+  
+  .main {
+    flex-direction: row;
+  }
+
+  .header-container {
+    width: 40%;
+    height: 100vh;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .header-text {
+    font-size: 2vw;
+  }
+  #mainLogo {
+    width: 3dvw;
+    height: 3dvw;
+  }
+
+  .horizontal-line {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .title {
+    width: 70%;
+    padding-left: 15%;
+    font-size: 2vw;
+    max-lines: 2;
+    text-align-last: auto;
+    letter-spacing: 0.2vw;
+  }
+
+  .buttons {
+    height: 100vh;
+    margin-left: 5%;
+    margin-right: 2%;
+  }
+  
+  @media screen and (max-width: 800px){
+
+    .main {
+      flex-direction: column;
+    }
+
+    .header-container {
+      width: 100%;
+      height: 20vh;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .header-text {
+      font-size: 5vw;
+    }
+
+    .buttons {
+      height: 70vh;
+      margin-left: 5%;
+      margin-right: 2%;
+    }
+  }
 }
 </style>

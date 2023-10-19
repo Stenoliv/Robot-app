@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     loadInRecipes() {
-      axios.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + import.meta.env.VITE_API_KEY 
+      axios.get("https://api.spoonacular.com/recipes/complexSearch?apiKey=" + this.$store.getters.getSpoonacular
         + "&query=" + this.query 
         + "&diet=" + this.diet
         + "&intolerances=" + this.intolerances
@@ -107,7 +107,9 @@ export default {
   }
 
   .container-recipe-list {
+    position: relative;
     margin-top: 5vh;
+    margin-bottom: 3vh;
     display: flex;
     justify-content: center;
     align-items: center;

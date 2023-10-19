@@ -59,4 +59,19 @@ export default {
         font-size: 1.75rem;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
+
+    @media screen and (max-width: 1000px) {
+        .random-container-main {
+            font-size: 0.75rem;
+        }
+        .back-button {
+            font-size: 1.2rem;
+        }
+
+        @media screen and (max-width: 600px) {
+            .random-container-main {
+                font-size: 0.75rem;
+            }
+        }
+    }
 </style>
